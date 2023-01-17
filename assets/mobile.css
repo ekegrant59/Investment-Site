@@ -1,0 +1,45 @@
+.navbar-custom{
+    font-size: x-large;
+}
+.height6{
+    height: 600px;
+}
+
+.position1{
+    font-size: large;
+}
+.position1 p{
+    margin-bottom: 40px;
+    margin-top: 30px;
+}
+
+.position2{
+    top: 100px;
+}
+.position2p, .position2a{
+    font-size: medium;
+}
+
+.community{
+    height: auto;
+}
+
+.welcome-to{
+    margin-left: 0px;
+    margin-right: 0px;
+    text-align: justify;
+}
+
+.core-services{
+    text-align: justify;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.justify{
+    text-align: justify;
+}
+
+footer{
+    font-size: small;
+}
