@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact-Us - AC Assets</title>
+    <%- include('partials/head-links') %>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init('e9ELiqFoFJhHREtSU');
+        })();
+    </script>
+</head>
+<body>
+    <%- include('partials/navbar') %>
+    <div class="aboutHead">
+        <h3 class="about-us-heading text-center my-4">Contact Us</h3>
+    </div>
+    
+    <div class="container-fluid">
+        <div class="row g-sm-5 my-4 px-sm-5 px-2 mx-sm-4 mx-2 ">
+            <div class="col-lg-6 p-4 order-2 order-sm-1">
+                <h4 class="about-us-heading ">Please Get In Touch With Us</h4>
+                <p>We are open to all suggestions from our clients.</p>
+                <form class="needs-validation" novalidate>
+                    <div class="row mb-3">
+                      <label for="inputName" class="col-12 col-form-label">Name:</label>
+                      <div class="col-12">
+                        <input type="text" class="form-control" id="inputName" name="user_name" required>
+                        <div class="invalid-feedback">
+                            Please input a valid Name.
+                        </div>
+                       </div>           
+                    </div>
+        
+                    <div class="row mb-3">
+                        <label for="inputUserEmail" class="col-12 col-form-label">Email:</label>
+                        <div class="col-12">
+                          <input type="email" class="form-control" id="inputUserEmail" name="user_email" required>
+                          <div class="invalid-feedback">
+                              Please Input a valid Email.
+                          </div>
+                         </div>           
+                    </div>
+        
+                    <div class="row mb-3">
+                      <label for="inputMessage" class="col-12 col-form-label" required>Message:</label>
+                      <div class="col-12">
+                        <textarea name="message" id="inputMessage" cols="30" rows="5" class="form-control"></textarea>
+                        <div class="invalid-feedback">
+                            Please Input a valid Message.
+                        </div>
+                       </div>             
+                    </div>
+        
+                    <button type="submit" class="btn btn-primary col-lg-3">Register</button>
+                </form>
+        
+            </div>
+            <div class="col-lg-6 contactEnd p-4 pt-4 mb-5 order-1 order-sm-2">
+                <p>Do You have any questions? We strongly recommend that you start searching for the necessary information in the FAQ section. If you need advice or technical assistance, do not hesitate to contact our specialists. <br> <br> Customer support is available around the clock. You just need to send a letter or a request via the feedback form to promptly receive the necessary assistance. Remember that the more detailed the description of your problem is, the sooner it will be solved. Do not forget to indicate your login detials, if you are a registered user of the website.</p>
+                <h3>CONTACT INFORMATION</h3>
+                <p>Number: </p>
+                <p>Email: </p>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const form = document.querySelector('.needs-validation')
+        // Loop over them and prevent submission
+            form.addEventListener('submit', event => {
+                event.preventDefault()
+                event.stopPropagation()
+            emailjs.sendForm('service_s538bwk', 'contact_form', form)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+            // console.log(name.value, email.value,message.value )
+            })
+        })()
+
+    </script>
+    <!-- <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // generate a five digit number for the contact_number variable
+                this.contact_number.value = Math.random() * 100000 | 0;
+                // these IDs from the previous steps
+                emailjs.sendForm('contact_service', 'contact_form', this)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+            });
+        }
+    </script> -->
+
+</body>
+</html>

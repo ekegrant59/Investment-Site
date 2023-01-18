@@ -5,15 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - AC Assets</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/style.css" >
-    <link rel="stylesheet" href="../assets/mobile.css" media="only screen and (max-width: 480px)">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <%- include('partials/head-links') %>
 </head>
 <body>
     <%- include('partials/navbar') %>
@@ -258,28 +250,49 @@
 
         let Countries = countries.split(',')
         // console.log(Countries)
+        let end = document.querySelector('#end')
+        end.style.visibility = 'hidden'
+        function append(){
+            let num = Math.floor(Math.random() * 50) + 1
+            let country = Countries[num]
+            // console.log(country)
+            let len
+            if (country.length > 6){
+                len = 4
+            }else{
+                len = country.length
+            }
 
-        let num = Math.floor(Math.random() * 50) + 1
-        let country = Countries[num]
-        // console.log(country)
-        let len
-        if (country.length > 6){
-            len = 4
-        }else{
-            len = country.length
+            let amount = Math.floor(Math.random() * Math.pow(10,len))
+            // console.log(amount)
+
+            let phrase = `someone from <b>${country}</b> just withdrew <b>$${amount}</b>`
+            console.log(phrase)
+
+            
+            let p = document.createElement('p')
+            p.innerHTML = phrase
+            end.style.visibility = 'visible'
+            end.innerHTML = p.innerHTML
         }
 
-        let amount = Math.floor(Math.random() * Math.pow(10,len))
-        // console.log(amount)
+        function unappend(){
+            end.style.visibility = 'hidden'
+        }
 
-        let phrase = `someone from ${country} just withdrew $${amount}`
-        console.log(phrase)
-
-        let end = document.querySelector('#end')
-        let p = document.createElement('p')
-        p.innerHTML = phrase
-        // end.append(p)
-
+        function run(){
+            append()
+            setTimeout(()=>{
+                unappend()
+            },7000)
+        }
+         
+        function inter(){
+            setInterval(run, 180000)
+        }
+        
+        inter()
+        
         
         
     </script>

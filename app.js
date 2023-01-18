@@ -17,6 +17,13 @@ app.get('/', (req,res)=>{
     res.render('index')
 })
 
+app.get('/about', (req,res)=>{
+    res.render('about-us')
+})
+
+app.get('/contact-us', (req,res)=>{
+    res.render('contact-us')
+})
 const port = process.env.PORT || 3000
 app.listen(port, ()=>{
     console.log(`App started on port ${port}`)
