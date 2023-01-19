@@ -24,6 +24,14 @@ app.get('/about', (req,res)=>{
 app.get('/contact-us', (req,res)=>{
     res.render('contact-us')
 })
+
+app.get('/privacy', (req,res)=>{
+    res.render('privacy')
+})
+
+app.get('/FAQ', (req,res)=>{
+    res.render('FAQ')
+})
 const port = process.env.PORT || 3000
 app.listen(port, ()=>{
     console.log(`App started on port ${port}`)

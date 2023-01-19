@@ -18,7 +18,8 @@
             len = country.length
         }
 
-        let amount = Math.floor(Math.random() * Math.pow(10,len))
+        let amount1 = Math.floor(Math.random() * Math.pow(10,len))
+        let amount = Math.floor(amount1/100) * 100
         // console.log(amount)
 
         let phrase = `someone from <b>${country}</b> just withdrew <b>$${amount}</b>`
@@ -47,7 +48,6 @@
     }
     
     inter()
-    
     
     
 </script>
