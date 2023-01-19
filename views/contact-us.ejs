@@ -69,15 +69,12 @@
     </div>
 
     <%- include('partials/footer') %>
+    <%- include('partials/popup.ejs') %>
 
     <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
         (() => {
         'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
         const form = document.querySelector('.needs-validation')
-        // Loop over them and prevent submission
             form.addEventListener('submit', event => {
                 event.preventDefault()
                 event.stopPropagation()
@@ -92,22 +89,7 @@
         })()
 
     </script>
-    <!-- <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('contact-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // generate a five digit number for the contact_number variable
-                this.contact_number.value = Math.random() * 100000 | 0;
-                // these IDs from the previous steps
-                emailjs.sendForm('contact_service', 'contact_form', this)
-                    .then(function() {
-                        console.log('SUCCESS!');
-                    }, function(error) {
-                        console.log('FAILED...', error);
-                    });
-            });
-        }
-    </script> -->
+    
 
 </body>
 </html>

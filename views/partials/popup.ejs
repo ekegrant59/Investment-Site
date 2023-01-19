@@ -1,0 +1,53 @@
+<div id="end"></div>
+
+<script>
+    let countries = "United-States,China,Spain,Italy,Turkey,United-Kingdom,Germany,Russia,Malaysia,Mexico,Austria,Hong-Kong, China,Ukraine,Thailand,Saudi-Arabia,Greece,Canada,Poland,Macao, China,Netherlands,Singapore,Hungary,Croatia,Korea ,Egypt, Arab,Morocco,Czech-Republic,Switzerland,South-Africa,Indonesia,Ireland,Romania,Belgium,Denmark,Portugal,Bahrain,Bulgaria,India,Japan,Vietnam,Australia,Argentina,Brazil,Sweden,Norway,Tunisia,Dominican-Republic,Finland,Jordan"
+
+    let Countries = countries.split(',')
+    // console.log(Countries)
+    let end = document.querySelector('#end')
+    end.style.visibility = 'hidden'
+    function append(){
+        let num = Math.floor(Math.random() * 50) + 1
+        let country = Countries[num]
+        // console.log(country)
+        let len
+        if (country.length > 6){
+            len = 4
+        }else{
+            len = country.length
+        }
+
+        let amount = Math.floor(Math.random() * Math.pow(10,len))
+        // console.log(amount)
+
+        let phrase = `someone from <b>${country}</b> just withdrew <b>$${amount}</b>`
+        console.log(phrase)
+
+        
+        let p = document.createElement('p')
+        p.innerHTML = phrase
+        end.style.visibility = 'visible'
+        end.innerHTML = p.innerHTML
+    }
+
+    function unappend(){
+        end.style.visibility = 'hidden'
+    }
+
+    function run(){
+        append()
+        setTimeout(()=>{
+            unappend()
+        },10000)
+    }
+     
+    function inter(){
+        setInterval(run, 100000)
+    }
+    
+    inter()
+    
+    
+    
+</script>
