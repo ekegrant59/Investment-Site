@@ -8,12 +8,12 @@ body{
     background-color: #070a0e;
 }
 .custom-toggler .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(40, 233, 143)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(181, 243, 243)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
 a{
     text-decoration: none;
-    color: rgb(8, 241, 191);
+    color: rgb(115, 179, 179);
 }
 .hidden{
     overflow-x: hidden;
@@ -105,7 +105,7 @@ a{
 }
 
 .about-us-heading{
-    color: rgb(40, 233, 143);
+    color: rgb(181, 243, 243);
     /* color: rgb(4, 88, 88); */
 }
 
@@ -156,15 +156,27 @@ footer h4{
     color: antiquewhite;
 }
 
+.bord2{
+    border-bottom-left-radius:25px ;
+    border-bottom-right-radius: 25px;
+}
+.bord1{
+    border-top-left-radius: 25px !important;
+    border-top-right-radius: 25px !important
+}
+
 .cardhead-col{
-    background-color:rgb(4, 88, 88) ;
-    color: wheat;
+    background-color:rgb(181, 243, 243) ;
+    color: #070a0e;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
 }
 
 .cardbody-col{
     font-weight: 700;
-    background-color: wheat;
-    color: rgb(4, 88, 88);
+    background-color: #16202c;
+    color: rgb(181, 243, 243);
+    
 }
 
 #end{
