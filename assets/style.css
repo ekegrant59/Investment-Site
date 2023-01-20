@@ -14,9 +14,10 @@ a{
 .hidden2{
     overflow-y: hidden;
 }
-.color1{
+.color1, .color2{
     color: rgb(4, 88, 88);
 }
+
 
 @media screen and (min-width : 992px){
     .color1:hover{
@@ -188,4 +189,8 @@ footer h4{
     color: white;
     border-radius: 15px;
     height: fit-content;
+}
+
+.w-auto{
+    width: min-content;
 }
