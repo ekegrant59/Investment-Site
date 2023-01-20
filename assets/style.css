@@ -1,12 +1,19 @@
-
+body{
+    background-color: #070a0e;
+    color: aliceblue;
+}
 .navbar-custom{
     font-size: large;
-    border-bottom: 1px solid gainsboro;
+    border-bottom: 1px solid rgb(2, 44, 44);
+    background-color: #070a0e;
+}
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(40, 233, 143)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
 a{
     text-decoration: none;
-    color: rgb(4, 88, 88);
+    color: rgb(8, 241, 191);
 }
 .hidden{
     overflow-x: hidden;
@@ -15,7 +22,12 @@ a{
     overflow-y: hidden;
 }
 .color1, .color2{
-    color: rgb(4, 88, 88);
+    color: rgb(192, 238, 217);
+    /* color: rgb(4, 88, 88); */
+}
+
+.color1:hover{
+    color: rgb(192, 238, 217);
 }
 
 
@@ -93,16 +105,17 @@ a{
 }
 
 .about-us-heading{
-    color: rgb(4, 88, 88);
+    color: rgb(40, 233, 143);
+    /* color: rgb(4, 88, 88); */
 }
 
 .about-us i{
     font-size: 50px;
-    color: rgb(4, 88, 88);
+    color: rgb(190, 240, 226);
 }
 
 hr.new1{
-    border: 1px solid rgb(1, 27, 27);
+    border: 1px solid rgb(209, 243, 243);
     margin: 0 auto;
 }
 
@@ -126,10 +139,10 @@ hr.new1{
     font-size: 50px;
 }
 hr.new2{
-    border: 1px solid wheat;
+    border: 1px solid rgb(243, 232, 212);
 }
 hr.new3{
-    border: 1px solid rgb(1, 27, 27);
+    border: 1px solid rgb(226, 250, 250);
 }
 footer{
     background-color: rgb(56, 51, 51);
@@ -168,12 +181,14 @@ footer h4{
 }
 
 .aboutHead{
-    background-color: rgb(213, 228, 228);
-    border-top: 2px solid rgb(229, 250, 250);
-    border-bottom: 2px solid rgb(229, 250, 250)
+    background-color: rgb(41, 58, 58);
+    border-top: 2px solid rgb(75, 78, 78);
+    border-bottom: 2px solid rgb(75, 78, 78);
 }
 .aboutEnd{
     background-image: radial-gradient( circle 759px at -6.7% 50%, rgba(80,131,73,1) 0%, rgba(140,209,131,1) 26.2%, rgba(178,231,170,1) 50.6%, rgba(144,213,135,1) 74.1%, rgba(75,118,69,1) 100.3% );
+    color: #070a0e;
+    font-size: large;
 }
 
 .justify{
@@ -193,4 +208,8 @@ footer h4{
 
 .w-auto{
     width: min-content;
+}
+
+.backg{
+    background-color: #070a0e;
 }

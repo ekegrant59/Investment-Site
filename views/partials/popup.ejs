@@ -11,19 +11,15 @@
         let num = Math.floor(Math.random() * 50) + 1
         let country = Countries[num]
         // console.log(country)
-        let len
-        if (country.length > 6){
-            len = 4
-        }else{
-            len = country.length
-        }
-
+        let len = Math.ceil(Math.random() *5) + 1
+        
+            console.log(len)
         let amount1 = Math.floor(Math.random() * Math.pow(10,len))
-        let amount = Math.floor(amount1/100) * 100
+        let amount = Math.ceil(amount1/100) * 100
         // console.log(amount)
 
         let phrase = `someone from <b>${country}</b> just withdrew <b>$${amount}</b>`
-        console.log(phrase)
+        // console.log(phrase)
 
         
         let p = document.createElement('p')
