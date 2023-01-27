@@ -59,8 +59,10 @@
   let cooki = /logintoken/ 
   let cookiTest = cooki.test(document.cookie)
   // console.log(cookiTest)
+  let name = '<%=name%>'
+  console.log(name)
 
-  if (cookiTest){
+  if (!(name == '')){
       loginbtn.innerHTML = 'Hi! <%=name%>'
       registerbtn.innerHTML = 'Your Dashboard'
       registerbtn.setAttribute('href', '/dashboard')

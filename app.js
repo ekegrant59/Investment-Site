@@ -134,10 +134,10 @@ app.get('/FAQ', async (req,res)=>{
         // console.log(token)
         try{
             const user = jwt.verify(token, secretkey)
-        req.user = user
-        const auser = req.user.user.email
-        const theuser = await userSchema.findOne({email: auser})
-        res.render('FAQ', {name: theuser.firstName})
+            req.user = user
+            const auser = req.user.user.email
+            const theuser = await userSchema.findOne({email: auser})
+            res.render('FAQ', {name: theuser.firstName})
         } catch(err){
             console.log(err)
             res.clearCookie('logintoken')
