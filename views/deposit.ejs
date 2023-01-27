@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit | AC Assets</title>
+    <%- include('partials/head-links') %>
+</head>
+<body>
+    <%- include('partials/usernav') %>
+    <div class="aboutHead">
+        <h3 class="about-us-heading text-center my-4">Deposit</h3>
+    </div>
+    <form class="col-lg-5 col-9 mt-4 mx-auto" action="/deposit" method="post" >
+        <div class="calculator">
+            <!-- Crypto Converter ⚡ Widget --><crypto-converter-widget shadow symbol live background-color="#383a59" border-radius="0.60rem" fiat="united-states-dollar" crypto="bitcoin" amount="1" decimal-places="3"></crypto-converter-widget><script async src="https://cdn.jsdelivr.net/gh/dejurin/crypto-converter-widget@1.5.2/dist/latest.min.js"></script><!-- /Crypto Converter ⚡ Widget -->
+        </div>
+        <div class="m-5">
+            <%- messages('messages', locals) %> 
+        </div>
+        <div class="mb-2">
+            <label for="selectPlan" class="form-label">Please Select a Plan
+            </label>
+            <select class="form-select" id="selectPlan">
+                <option value="basic" selected>Basic Plan</option>
+                <option value="PRO">PRO Plan</option>
+                <option value="Premuim">Premuim Plan</option>
+                <option value="Retirement">Retirement Plan</option>
+            </select>
+        </div>
+        <div class="mb-2">
+            <label for="staticProfit" class="form-label">Profit:</label>
+            <div class="">
+              <input type="text" readonly class="form-control-plaintext" id="staticProfit" value="5% Weekly">
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="staticDuration" class="form-label">Duration:</label>
+            <div class="">
+              <input type="text" readonly class="form-control-plaintext" id="staticDuration" value="7 Days">
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="staticDeposit" class="form-label">Minimum Deposit:</label>
+            <div class="">
+              <input type="text" readonly class="form-control-plaintext" id="staticDeposit" value="$500">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="Deposit" class="form-label">Enter Amount:</label>
+            <div class="">
+              <input type="tel" class="form-control" id="amount" name="amount" placeholder="Minimum Amount: $500">
+            </div>
+            <p class="text-danger invalid" style="display: none;">Please Input A Valid Number (without special characters)</p>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary mb-4 w-50 next"><b>NEXT</b></button>
+        </div>
+
+        <div style="display: none;" class="show mt-3">
+            <h5 class="text-center mb-4">Please send the specified amount to the following bitcoin address</h5>
+            <div class="col-lg-3 col-6 mx-auto">
+                <img src="../assets/images/btc-qr.jpg" alt="" class="img-fluid">
+            </div>
+            <p class="mt-4 text-center mb-2 address">1Dfo8T1wiD6Mk9A6Zrvw86HNwUKYjNTF23</p>
+            <div class="text-center mb-3">
+                <button class="btn btn-info btn-sm copy me-2">Copy Address</button>
+                <button class="btn btn-primary btn-sm calc">Bitcoin Calculator</button>
+            </div>
+
+            <div class="mb-2">
+                <label for="transactionID" class="form-label">Transaction ID:</label>
+                <div class="">
+                  <input type="text" class="form-control" id="transactionID" name="transactID">
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary mb-4 w-50 next"><b>SUBMIT</b></button>
+            </div>
+        </div>
+
+    </form>
+
+    <script>
+        let selectPlan = document.querySelector('#selectPlan')
+        let profit = document.querySelector('#staticProfit')
+        let deposit = document.querySelector('#staticDeposit')
+        let duration = document.querySelector('#staticDuration')
+        let next = document.querySelector('.next')
+        let show = document.querySelector('.show')
+        let copy = document.querySelector('.copy')
+        let amount = document.querySelector('#amount')
+        let invalid = document.querySelector('.invalid')
+        let address = document.querySelector('.address')
+        let calc = document.querySelector('.calc')
+        let calculator = document.querySelector('.calculator')
+        let depositAMT = 500
+        calculator.style.display = 'none'
+        
+
+        selectPlan.addEventListener('change', (e)=>{
+            // console.log(e.target.value)
+            let selected = e.target.value
+            
+            // console.log(selectPlan.value)
+            if(selected == 'basic'){
+                // console.log(selectPlan.value)
+                profit.value = '5% Weekly'
+                deposit.value = '$500'
+                depositAMT = 500
+                duration.value = '7 Days'
+                amount.placeholder = 'Minimum Amount: $500'
+            }else if (selected == 'PRO'){
+                // console.log(selectPlan.value)
+                profit.value = '25% Monthly'
+                deposit.value = '$15,000'
+                depositAMT = 15000
+                duration.value = '30 Days'
+                amount.placeholder = 'Minimum Amount: $15,000'
+            }else if (selected == 'Premuim'){
+                // console.log(selectPlan.value)
+                profit.value = '30% Monthly'
+                deposit.value = '$45,000'
+                depositAMT = 45000
+                duration.value = '90 Days'
+                amount.placeholder = 'Minimum Amount: $45,000'
+            }else if (selected == 'Retirement'){
+                // console.log(selectPlan.value)
+                profit.value = '50% Monthly'
+                deposit.value = '$100,000'
+                depositAMT = 100000
+                duration.value = '180 Days'
+                amount.placeholder = 'Minimum Amount: $100,000'
+            }
+        })
+
+        next.addEventListener('click', (e)=>{
+            e.preventDefault()
+            // console.log(depositAMT)
+            if(amount.value < depositAMT || !(amount.value) || /\$/.test(amount)){
+                invalid.style.display = 'block'
+            } else {
+                invalid.style.display = 'none'
+                show.style.display = 'block'
+                next.style.display = 'none'
+            }
+        })
+
+        copy.addEventListener('click', (e)=>{
+            e.preventDefault()
+            navigator.clipboard.writeText(address.innerHTML)
+            copy.innerHTML = 'COPIED!'
+        })
+
+        calc.addEventListener('click', (e)=>{
+            e.preventDefault()
+            if (calculator.style.display == 'none'){
+                calculator.style.display = 'block'
+                calc.innerHTML = 'click to close'
+            } else{
+                calculator.style.display = 'none'
+                calc.innerHTML ='Bitcoin Calculator'
+            }
+        })
+    </script>
+</body>
+</html>

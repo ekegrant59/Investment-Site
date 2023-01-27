@@ -16,46 +16,55 @@
     <div class="container-fluid" data-bs-theme="dark">
         <div class="my-5 px-sm-5 col-md-8 col-11 mx-auto px-3  shadow-lg bg-body-tertiary rounded">
              <h4 class="about-us-heading text-center my-4 pt-4">Registration Form</h4>
-             <form  >
-                <div class="input-group mb-4" data-bs-theme="dark">
-                    <span class="input-group-text">Your name</span>
-                    <input type="text" aria-label="First name" class="form-control" placeholder="First Name">
-                    <input type="text" aria-label="Last name" class="form-control " placeholder="Last Name">
+             <form id="myform" >
+                <div class="alert alert-danger registered">
+                this email has already been registered
                 </div>
-
-                <div class="input-group mb-4">
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                <div class="mb-4">
+                  <div class="input-group" data-bs-theme="dark">
+                    <span class="input-group-text">Your name</span>
+                    <input type="text" aria-label="First name" class="form-control myinput1" placeholder="First Name" name="firstName">
+                    <input type="text" aria-label="Last name" class="form-control myinput2" placeholder="Last Name" name="lastName">
+                  </div>
+                  <p class="text-center text-danger invalidname">Please input a valid name</p>
                 </div>
                   
-                <div class="input-group mb-4">
+                <div class="mb-4">
+                  <div class="input-group">
                     <span class="input-group-text" id="basic-addon2">user@email.com</span>
-                    <input type="email" class="form-control" placeholder="Your Email Address" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <input type="email" class="form-control myemail1" placeholder="Your Email Address" aria-label="Recipient's email" aria-describedby="basic-addon2" name="email" >
+                  </div>
+                  <p class="text-center text-danger invalidemail1">Please input a valid Email address</p>
                 </div>
 
-                <div class="input-group mb-4">
-                    <input type="email" class="form-control" placeholder="Confirm Email Address" aria-label="Recipient's username" aria-describedby="basic-addon2a">
+                <div class="mb-4">
+                  <div class="input-group">
+                    <input type="email" class="form-control myemail2" placeholder="Confirm Email Address" aria-label="Recipient's username" aria-describedby="basic-addon2a">
                     <span class="input-group-text" id="basic-addon2a">user@email.com</span>
+                  </div>
+                  <p class="text-center text-danger invalidemail">Please input the same Email address</p>
                 </div>
 
                 <div class="row mb-4 g-3">
                     <div class="col-md-5">
                         <div class="input-group ">
                             <span class="input-group-text" id="basic-addon1a">Password</span>
-                            <input type="password" class="form-control" placeholder="*******" aria-label="Password" aria-describedby="basic-addon1a">
+                            <input type="password" class="form-control mypass1" placeholder="*******" aria-label="Password" aria-describedby="basic-addon1a" name="password">
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="input-group ">
                             <span class="input-group-text" id="basic-addon1b">Confirm Password</span>
-                            <input type="password" class="form-control" placeholder="********" aria-label="Password" aria-describedby="basic-addon1b">
+                            <input type="password" class="form-control mypass2" placeholder="********" aria-label="Password" aria-describedby="basic-addon1b">
                         </div>
                     </div>
+                    <p class="text-center text-danger invalidpass2">Please input a valid password </p>
+                    <p class="text-center text-danger invalidpass1">Please Input the same password</p>
                 </div>
 
                 <div class="input-group mb-4">
-                    <label class="input-group-text" for="inputGroupSelect01">Country</label>
-                    <select class="form-select" id="inputGroupSelect01">
+                    <label class="input-group-text" for="inputSelect01">Country</label>
+                    <select class="form-select" id="inputSelect01" name="country">
                       <option selected>Select Country</option>
                       <option value="Afghanistan">
                         Afghanistan
@@ -557,8 +566,13 @@
                 </div>
 
                 <div class="input-group  mb-4">
+                    <span class="input-group-text" id="basic-addon11a">Number</span>
+                    <input type="tel" class="form-control" placeholder="Enter Phone Number" aria-label= "Number" aria-describedby="basic-addon11a" name="number">
+                </div>
+
+                <div class="input-group  mb-4">
                     <span class="input-group-text" id="basic-addon11">Referrer</span>
-                    <input type="text" class="form-control" placeholder="Enter Referrer Name" aria-label="Referre" aria-describedby="basic-addon11">
+                    <input type="text" class="form-control" placeholder="Enter Referrer Name" aria-label="Referrer" aria-describedby="basic-addon11" name="referrer">
                 </div>
                 
                 <div>
@@ -674,10 +688,11 @@
                       </select>
                 </div>
                 <div class="form-check mb-3 w-auto mx-auto">
-                    <input class="form-check-input" type="checkbox" value="agreed" id="agree1">
+                    <input class="form-check-input" type="checkbox"  id="agree1">
                     <label class="form-check-label" for="agree1">
                       I have read and agreed to <a href="/terms-of-service"><b>Terms And Conditions</b></a>
                     </label>
+                    <p class="text-center text-danger agreed">Please agree to continue </p>
                 </div>
                 <div class="my-3 text-center">
                     <button class="btn btn-success btn-lg" type="submit">Create Account</button>
@@ -689,7 +704,79 @@
              </form>
         </div>
     </div>
-
     <%- include('partials/footer') %>
+
+    <script>
+      const form = document.querySelector('#myform')
+      const name1 = document.querySelector('.myinput1') 
+      const name2 = document.querySelector('.myinput2')
+      const email1 = document.querySelector('.myemail1') 
+      const email2 = document.querySelector('.myemail2')
+      const pass1 = document.querySelector('.mypass1') 
+      const pass2 = document.querySelector('.mypass2')
+      const country = document.querySelector('#inputSelect01')
+      const invalidname = document.querySelector('.invalidname')
+      const invalidemail = document.querySelector('.invalidemail')
+      const invalidemail1 = document.querySelector('.invalidemail1')
+      const invalidpass1 = document.querySelector('.invalidpass1')
+      const invalidpass2 = document.querySelector('.invalidpass2')
+      const checkbox = document.querySelector('#agree1')
+      const agreed = document.querySelector('.agreed')
+      const registered = document.querySelector('.registered')
+      invalidname.style.display = 'none'
+      invalidemail.style.display = 'none'
+      invalidemail1.style.display = 'none'
+      invalidpass1.style.display = 'none'
+      invalidpass2.style.display = 'none'
+      agreed.style.display = 'none'
+      registered.style.display ='none'
+      let emailcheck = /^([a-zA-Z0-9\.-]+)@([a-zA-Z0-9-]+).([a-z]{2,20})(.[a-z]{2,8})?$/
+      let check1 = emailcheck.test(email1.value)
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault()
+        if (!name1.value){
+          invalidname.style.display = 'block'
+          name1.style.borderColor = 'red'
+        } else if (!name2.value){
+          invalidname.style.display = 'block'
+          name2.style.borderColor = 'red'
+        } else if (check1){
+          console.log(check1)
+          invalidemail1.style.display = 'block'
+          email1.style.borderColor = 'red'
+        }else if (!(email1.value === email2.value)){
+          invalidemail.style.display = 'block'
+          email2.style.borderColor = 'red'
+        } else if(!pass1.value){
+          invalidpass2.style.display = 'block'
+        }else if (!(pass1.value == pass2.value)){
+          invalidpass1.style.display = 'block'
+        } else if (!checkbox.checked){
+          // console.log(checkbox.value)
+          agreed.style.display = 'block'
+        }else{
+          const formdata = new FormData(form);
+          const payload = new URLSearchParams(formdata);
+          fetch('/register', {
+            method:'POST',
+            body: payload,
+            // redirect: "follow"
+          })
+          .then(res => {
+            // console.log(res)
+            if (window.location.href == res.url){
+              registered.style.display ='block'
+            } else{
+              // console.log(res.url)
+              window.alert('Sucessfully Registered! \nPlease Login')
+              window.location.href = res.url
+            }
+          })
+          // .then(data => console.log(data))
+        }
+      })
+      
+    </script>
 </body>
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile |AC Assets</title>
+    <%- include('partials/head-links') %>
+</head>
+<body>
+    <%- include('partials/usernav') %>
+    <div class="aboutHead">
+        <h3 class="about-us-heading text-center my-4">Edit Your Account</h3>
+    </div>
+    <div class="m-5">
+        <%- messages('messages', locals) %> 
+    </div>
+
+    <div class="container-fluid">
+        <form action="edit-account" method="post" class="m-4 p-4">
+            <div class="mb-3 row">
+                <label for="inputName" class="col-sm-3 col-form-label">Account Name: </label>
+                <div class="col-sm-9">
+                  <input type="text" readonly class="form-control-plaintext" id="inputName" value="<%= user.firstName %> <%= user.lastName %>">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputdate" class="col-sm-3 col-form-label">Registration Date: </label>
+                <div class="col-sm-9">
+                  <input type="text" readonly class="form-control-plaintext" id="inputdate" value="<%= user.date %>">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Email:</label>
+                <div class="col-sm-9">
+                  <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="<%= user.email %>" name="email">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassworda" class="col-sm-3 col-form-label">Password:</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" id="inputPassword" name="password">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputPassworda" class="col-sm-3 col-form-label">Retype Password:</label>
+                <div class="col-sm-9">
+                  <input type="password" class="form-control" id="inputPassworda" name="passworda">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Your BITCOIN WALLET ADDRESS:</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="staticEmail" value="<%= user.bitcoin %>" name="btc">
+                </div>
+            </div>
+            
+            <div class="my-3 text-center">
+                <button class="btn btn-success btn-lg" type="submit">SUBMIT</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -6,6 +6,7 @@ body{
     font-size: large;
     border-bottom: 1px solid rgb(2, 44, 44);
     background-color: #070a0e;
+    box-sizing: border-box;
 }
 .custom-toggler .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(181, 243, 243)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
@@ -113,6 +114,8 @@ a{
     font-size: 50px;
     color: rgb(190, 240, 226);
 }
+
+
 
 hr.new1{
     border: 1px solid rgb(209, 243, 243);
@@ -224,4 +227,29 @@ footer h4{
 
 .backg{
     background-color: #070a0e;
+}
+
+.bigger{
+    font-size: xx-large;
+}
+
+#tradingview_537b9{
+    height: 500px;
+    margin: 20px;
+    margin-top: 50px;
+}
+
+.small{
+    font-size: smaller;
+}
+
+.feedback{
+    background-image: url(../assets/images/laptop-bg.jpeg);
+    height: 400px;
+}
+
+.calculator{
+    position: fixed;
+    top: 150px;
+    right: 10px;
 }

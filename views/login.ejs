@@ -15,14 +15,17 @@
 
     <div class="container-fluid">
         <div class="col-md-5 mx-auto mt-5 my-5 pt-5 pb-3  px-sm-5 px-4 shadow-lg bg-body-tertiary rounded col-10 ">
-            <form>
+            <form action="/login" method="post">
+                <div >
+                    <%- messages('messages', locals) %> 
+                </div>
                 <div class="mb-4">
                   <label for="InputEmail1" class="form-label">Email address</label>
-                  <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="YOUR EMAIL ADDRESS">
+                  <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="YOUR EMAIL ADDRESS" name="email">
                 </div>
                 <div class="mb-4">
                   <label for="exampleInputPassword1" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="YOUR PASSWORD">
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="YOUR PASSWORD" name="password">
                 </div>
                 <div class="mb-4 form-check">
                   <input type="checkbox" class="form-check-input" id="exampleCheck1">
