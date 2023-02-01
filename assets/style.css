@@ -253,3 +253,7 @@ footer h4{
     top: 150px;
     right: 10px;
 }
+
+.pending-deposits i{
+    font-size: xx-large;
+}

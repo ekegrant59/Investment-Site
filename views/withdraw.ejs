@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw</title>
+    <%- include('partials/head-links') %>
+</head>
+<body>
+    <%- include('partials/usernav') %>
+    <div class="aboutHead">
+        <h3 class="about-us-heading text-center my-4">Withdraw</h3>
+    </div>
+
+    <form action="/withdraw" method="post" class="my-4 p-4 col-sm-9 col-10 mx-auto">
+        <div class="m-5">
+            <%- messages('messages', locals) %> 
+        </div>
+        <div class="mb-3 row">
+            <label for="inputAmount" class="col-sm-3 col-form-label">Account Balance: </label>
+            <div class="col-sm-9">
+              <input type="text" readonly class="form-control-plaintext" id="inputAmount" value="$<%= user.balance %>">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputAmount1" class="col-sm-3 col-form-label">Withdrawal Amount: </label>
+            <div class="col-sm-9">
+              <input type="tel" class="form-control" id="inputAmount1" placeholder="Please Input the withdrawal amount" name="amount">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputAddress" class="col-sm-3 col-form-label">Withdrawal Address: </label>
+            <div class="col-sm-9">
+              <input type="tel" class="form-control" id="inputAddress" placeholder="Please input your Bitcoin address" value="<%= user.bitcoin %>" name="address">
+            </div>
+        </div>
+
+        <div class="my-3 text-center">
+            <button class="btn btn-success btn-lg submit" type="submit" disabled>SUBMIT</button>
+        </div>
+
+    </form>
+
+    <script>
+        let address = document.querySelector('#inputAddress')
+        let balance = parseInt('<%= user.balance %>')
+        let button = document.querySelector('.submit')
+        let amount = document.querySelector('#inputAmount1')
+        if(!(address.value)){
+            address.removeAttribute('value')
+        }
+
+        if(balance > 0 ){
+            button.removeAttribute('disabled')
+        }
+
+
+    </script>
+</body>
+</html>

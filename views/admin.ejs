@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <%- include('partials/head-links') %>
+</head>
+<body>
+    <div class="aboutHead d-flex align-items-center">
+        <h3 class="about-us-heading text-center my-4 mx-auto">WELCOME!</h3>
+        <a href="/admin/update" class="btn btn-primary me-4">Edit Users</a>
+    </div>
+
+    <div class="registered my-5 mx-sm-5 mx-3">
+        <h2 class="ms-2 about-us-heading">Registered Users</h2>
+        <div class="mt-2">
+            <div class="row">
+                <div class="col-2 border border-white p-3"><b>NAME</b></div>
+                <div class="col-2 border border-white p-3 "><b>EMAIL</b></div>
+                <div class="col-2 border border-white p-3 "><b>PASSWORD</b></div>
+                <div class="col-2 border border-white p-3 "><b>NUMBER</b></div>
+                <div class="col-2 border border-white p-3 "><b>COUNTRY</b></div>
+                <div class="col-2 border border-white p-3 "><b>DATE</b></div>
+            </div>
+        </div>
+
+        <% if (users) { %>
+            <div class="">
+                <% users.forEach(user =>{ %>
+                    <div class="row">
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.firstName %> <%= user.lastName %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.email %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.password1 %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.number %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.country %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.date %></div>
+                    </div>
+                <% }) %> 
+            </div>
+        <% } else {%>
+            <div>
+                <p>NO REGISTERED USERS</p>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="confirm-deposits my-5 mx-sm-5 mx-3">
+        <h2 class="ms-2 about-us-heading">Confirmed Deposits</h2>
+        <div class="">
+            <div class="row">
+                <div class="col-3 border border-white p-3"><b>NAME</b></div>
+                <div class="col-3 border border-white p-3 overflow-auto text-nowrap"><b>TRANSACTION ID</b></div>
+                <div class="col-3 border border-white p-3 "><b>AMOUNT</b></div>
+                <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+            </div>
+        </div>
+
+        <% if (confirmDeposits) { %>
+            <div class="">
+                <% confirmDeposits.forEach(confirmDeposit =>{ %>
+                    <div class="row">
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=confirmDeposit.name%></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.transactID %></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.amount %></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.date %></div>
+                    </div>
+                <% }) %> 
+            </div>
+        <% } else {%>
+            <div>
+                <p>NO CONFIRMED DEPOSITS</p>
+            </div>
+        <% } %>
+
+    </div>
+
+    <div class="pending-deposits my-5 mx-sm-5 mx-3">
+        <h2 class="ms-2 about-us-heading">Pending Deposits</h2>
+        <div class="">
+            <div class="row">
+                <div class="col-3 border border-white p-3"><b>NAME</b></div>
+                <div class="col-3 border border-white p-3 overflow-auto text-nowrap"><b>TRANSACTION ID</b></div>
+                <div class="col-3 border border-white p-3 "><b>AMOUNT</b></div>
+                <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+            </div>
+        </div>
+
+        <% if (pendDeposits) { %>
+            <div class="">
+                <% pendDeposits.forEach(pendDeposit =>{ %>
+                    <div class="row">
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=pendDeposit.name%></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.transactID %></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.amount %></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.date %></div>
+                    </div>
+                <% }) %> 
+            </div>
+        <% } else {%>
+            <div>
+                <p>NO CONFIRMED DEPOSITS</p>
+            </div>
+        <% } %>
+
+    </div>
+
+    <div class="withdrawal my-5 mx-sm-5 mx-3">
+        <h2 class="ms-2 about-us-heading">Pending Withdrawals</h2>
+        <div class="">
+            <div class="row">
+                <div class="col-3 border border-white p-3"><b>NAME</b></div>
+                <div class="col-3 border border-white p-3 overflow-auto text-nowrap"><b>ADDRESS</b></div>
+                <div class="col-3 border border-white p-3 "><b>AMOUNT</b></div>
+                <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+            </div>
+        </div>
+
+        <% if (withdrawals) { %>
+            <div class="">
+                <% withdrawals.forEach(withdrawal =>{ %>
+                    <div class="row">
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=withdrawal.name%></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= withdrawal.address%></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= withdrawal.amount %></div>
+                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= withdrawal.date %></div>
+                    </div>
+                <% }) %> 
+            </div>
+        <% }%>
+
+    </div>
+</body>
+</html>

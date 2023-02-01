@@ -14,13 +14,26 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row m-sm-5 m-2 ">
-            <div class="col border border-white p-3"><b>ID</b></div>
+        <div class="row mt-sm-5 mx-sm-5 m-2 ">
+            <div class="col border border-white p-3"><b>DATE</b></div>
+            <div class="col border border-white p-3"><b>ADDRESS</b></div>
             <div class="col border border-white p-3"><b>AMOUNT</b></div>
             <div class="col border border-white p-3"><b>STATUS</b></div>
-            <div class="col border border-white p-3"><b>DATE</b></div>
         </div>
     </div>
+
+    <% if (withdrawals) { %>
+        <div class="container-fluid">
+            <% withdrawals.forEach(withdrawal =>{ %>
+                <div class="row mx-sm-5 mx-2 ">
+                    <div class="col-3 p-3 border border-white text-nowrap overflow-scroll overflow-y-hidden"><b><%= withdrawal.date %> </b></div>
+                    <div class="col-3 p-3 border border-white text-nowrap overflow-sm-scroll overflow-y-hidden"><b><%= withdrawal.address %> </b></div>
+                    <div class="col-3 p-3 border border-white text-nowrap"><b><%= withdrawal.amount %> </b></div>
+                    <div class="col-3 p-3 border border-white text-nowrap"><b><%= withdrawal.status %> </b></div>
+                </div>
+            <% }) %> 
+        </div>
+    <% } %>
     
 </body>
 </html>

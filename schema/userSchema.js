@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
     number: String,
     referrer: String,
     date: String,
-    balance: Number,
     bitcoin: String
 })
 

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User information</title>
+    <%- include('partials/head-links') %>
+</head>
+<body>
+    <div class="aboutHead d-flex align-items-center">
+        <h3 class="about-us-heading text-center my-4 mx-auto">Update User Information</h3>
+        <a href="/admin" class="btn btn-primary me-4">Back</a>
+    </div>
+
+    <div class="container-fluid mt-3">
+        <form action="/edit" method="post" class="mx-auto p-4 col-md-8 col-11">
+            <div class="messages alert-danger alert">
+            </div>
+            <div >
+                <%- messages('messages', locals) %> 
+            </div>
+
+            <div class="mb-3 row">
+                <label for="inputEmail" class="col-sm-3 col-form-label">Search for user: </label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" id="inputEmail" placeholder="Please Input user's email" name="email">
+                </div>
+            </div>
+
+            <div class="my-3 text-center">
+                <button class="btn btn-success btn-lg search" type="button">SEARCH</button>
+            </div>
+
+            <div class="container-fluid mt-5 show">
+                <div class="mb-3 row">
+                    <label for="inputName" class="col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" readonly  class="form-control-plaintext" id="inputName" >
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputBalance" class="col-sm-3 col-form-label">Account Balance</label>
+                    <div class="col-sm-9">
+                      <input type="text"  class="form-control" id="inputBalance" name="balance">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputTotal" class="col-sm-3 col-form-label">Earned Total</label>
+                    <div class="col-sm-9">
+                      <input type="text"  class="form-control" id="inputTotal" name="ROI" >
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputBonus" class="col-sm-3 col-form-label">Bonus</label>
+                    <div class="col-sm-9">
+                      <input type="text"  class="form-control" id="inputBonus" name="bonus" >
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputTotalDeposit" class="col-sm-3 col-form-label">Total Deposit</label>
+                    <div class="col-sm-9">
+                      <input type="text"  class="form-control" id="inputTotalDeposit" name="totalDeposit" >
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputTotalWithdrawal" class="col-sm-3 col-form-label">Total Withdrawal</label>
+                    <div class="col-sm-9">
+                      <input type="text"  class="form-control" id="inputTotalWithdrawal" name="totalWithdrawal">
+                    </div>
+                </div>
+                <div class="my-3 text-center">
+                    <button class="btn btn-success btn-lg" type="submit">UPDATE</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+<script>
+    let show = document.querySelector('.show')
+    show.style.display = 'none'
+
+    let search = document.querySelector('.search')
+    let email = document.querySelector('#inputEmail')
+    let messages = document.querySelector('.messages')
+    messages.style.display = 'none'
+    
+
+    search.addEventListener('click', ()=>{
+        messages.style.display = 'none'
+        show.style.display = 'none'
+        let url = `/edit/${email.value}`
+        fetch(url, {
+            method: 'GET'
+        }). then(res => res.json())
+        .catch(err => {
+            // console.log(err)
+            messages.innerHTML = 'User Not Found!'
+            messages.style.display = 'block'
+        })
+        .then(data => details(data))
+    })
+
+    function details(user){
+        if(user){
+            console.log(user)
+            let name = document.querySelector('#inputName')
+            let balance = document.querySelector('#inputBalance')
+            let earned = document.querySelector('#inputTotal')
+            let bonus = document.querySelector('#inputBonus')
+            let totalDeposit = document.querySelector('#inputTotalDeposit')
+            let totalWithdrawal = document.querySelector('#inputTotalWithdrawal')
+    
+            name.value = user.name
+            balance.value = user.balance
+            earned.value = user.ROI
+            bonus.value = user.bonus
+            totalDeposit.value = user.totalDeposit
+            totalWithdrawal.value = user.totalWithdrawal
+            show.style.display = 'block'
+        } else{
+            messages.innerHTML = 'User Not Found!'
+            messages.style.display = 'block'
+        }
+    }
+</script>
+</html>

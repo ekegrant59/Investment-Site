@@ -9,7 +9,9 @@ const userSchema = require('./schema/userSchema')
 const depositSchema = require('./schema/depositSchema')
 // const flash = require('connect-flash')
 const session = require('express-session')
-
+const withdrawSchema = require('./schema/withdrawSchema')
+const adminSchema = require('./schema/adminSchema')
+const balanceSchema = require('./schema/balanceSchema')
 const app = express()
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
@@ -31,6 +33,7 @@ app.use(function (req, res, next) {
 
 const mongodb = process.env.MONGODB
 const secretkey = process.env.SECRETKEY
+const adminkey = process.env.ADMINKEY
 mongoose.connect(mongodb)
 .then(() => {
    console.log('Connection successful')
@@ -247,10 +250,20 @@ app.post('/register', async (req,res)=>{
                 country: details.country,
                 number: details.number,
                 referrer: details.referrer,
-                balance: 0.00,
                 date: date
             })
             await user.save()
+
+            const balance = new balanceSchema({
+                name: `${details.firstName} ${details.lastName}`,
+                email: details.email,
+                balance: 0.00,
+                ROI: 0.00,
+                bonus: 0.00,
+                totalDeposit: 0.00,
+                totalWithdrawal:0.00
+            })
+            await balance.save()
 
             res.redirect('/login')
         }catch(err){
@@ -307,7 +320,8 @@ app.get('/dashboard',protectRoute, async (req,res)=>{
     try{
         const auser = req.user.user.email
         const theuser = await userSchema.findOne({email: auser})
-        res.render('dashboard', {user: theuser})
+        const theuser1 = await balanceSchema.findOne({email: auser})
+        res.render('dashboard', {user: theuser, user1: theuser1})
     } catch(err){
         console.log(err)
     }
@@ -338,7 +352,9 @@ app.get('/withdrawal-history',protectRoute, async (req,res)=>{
     try{
         const auser = req.user.user.email
         const theuser = await userSchema.findOne({email: auser})
-        res.render('withdrawal-history', {user: theuser})
+        const name = `${theuser.firstName} ${theuser.lastName}`
+        const withdrawal = await withdrawSchema.find({name: name})
+        res.render('withdrawal-history', {user: theuser, withdrawals: withdrawal})
     } catch(err){
         console.log(err)
     }
@@ -404,7 +420,7 @@ app.post('/edit-account', async (req,res)=>{
         req.flash('success','Your account has been updated sucsesfully')
         res.redirect('/account-settings')
     }else{
-        userSchema.findOneAndUpdate(filter, {$set:{password:hashedPassword1, bitcoin:details.btc}}, {new: true}, (err,dets)=>{
+        userSchema.findOneAndUpdate(filter, {$set:{password:hashedPassword1, bitcoin:details.btc, password1:pass1}}, {new: true}, (err,dets)=>{
             if(err){
                 console.log(err)
             }
@@ -449,6 +465,172 @@ app.post('/deposit', async (req,res)=>{
             console.log(err)
         }
     }
+})
+
+app.post('/withdraw', async (req,res)=>{
+    const token = req.cookies.logintoken
+    const user = jwt.verify(token, secretkey)
+    req.user = user
+    const auser = req.user.user.email
+    const theuser = await userSchema.findOne({email: auser})
+
+    const details = req.body
+    const balance = theuser.balance
+    const date = new Date()
+    const amount = details.amount
+    const name = `${theuser.firstName} ${theuser.lastName}`
+
+    if(amount > balance){
+        req.flash('danger', 'Insufficient Funds')
+        res.redirect('/withdraw')
+    }else if(!amount){
+        req.flash('danger', 'Please input a valid amount')
+        res.redirect('/withdraw')
+    } else{
+        withdrawn()
+    }
+
+    async function withdrawn(){
+        try{
+            const withdraw = new withdrawSchema({
+                name: name,
+                amount: amount,
+                status: 'pending',
+                date: date,
+                address: details.address
+            })
+            await withdraw.save()
+            res.redirect('/withdrawal-history')
+        } catch(err){
+            console.log(err)
+        }
+    }
+})
+
+app.get('/adminregister', (req,res)=>{
+    res.render('adminregister')
+})
+
+app.post('/adminregister', async(req,res)=>{
+      const regInfo = req.body
+      const password = regInfo.password
+    
+      const salt = await bcrypt.genSalt(10)
+      const hashedPassword = await bcrypt.hash(password, salt)
+    
+        run()
+        async function run(){
+            try {
+                const admin = new adminSchema({
+                    email: regInfo.email,
+                    password: hashedPassword
+                })
+                await admin.save()
+            }
+            catch (err) {
+                console.log(err.message)
+            
+            }
+        }
+    
+        res.redirect('/admin')
+    })
+
+app.get('/admin',protectAdminRoute, async (req,res)=>{
+    try{
+        const user = await userSchema.find()
+        const pendDeposit = await depositSchema.find({status: 'pending'})
+        const confirmDeposit = await depositSchema.find({status: 'confirmed'})
+        const withdrawal = await withdrawSchema.find()
+        res.render('admin', {users: user, pendDeposits: pendDeposit, confirmDeposits: confirmDeposit, withdrawals: withdrawal })
+    } catch(err){
+        console.log(err)
+    }
+})
+    
+    function protectAdminRoute(req, res, next){
+        const token = req.cookies.admintoken
+        try{
+            const user = jwt.verify(token, adminkey)
+    
+            req.user = user
+            // console.log(req.user)
+            next()
+        }
+        catch(err){
+            res.clearCookie('admintoken')
+            return res.render('adminlogin')
+        }
+    }
+
+app.post('/adminlogin', (req,res)=>{
+    const loginInfo = req.body
+
+    const email = loginInfo.email
+    const password = loginInfo.password
+
+    adminSchema.findOne({email})
+    .then((admin)=>{
+        adminSchema.findOne({email: email}, (err,details)=>{
+            if(!details){
+                req.flash('danger','Incorrect email')
+                res.redirect('/admin')
+            } else{
+                bcrypt.compare(password, admin.password, async (err,data)=>{
+                    if(data){
+                        const payload1 = {
+                            user:{
+                                email: admin.email
+                            }
+                        }
+                        const token1 = jwt.sign(payload1, adminkey,{
+                            expiresIn: '3600s'
+                        })
+
+                        res.cookie('admintoken', token1, {
+                            httpOnly: false
+                        })
+
+                        res.redirect('/admin')
+                    } else{
+                        req.flash('danger', 'incorrect password')
+                        res.redirect('/admin')
+                    }
+                })
+            }
+        })
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+app.get('/admin/update',protectAdminRoute, (req,res)=>{
+    res.render('adminUpdate')
+})
+
+app.get('/edit/:id', async (req,res)=>{
+    let email = req.params.id 
+    // console.log(email)
+
+    let balance = await balanceSchema.findOne({email: email})
+    // console.log(balance)
+    res.send(balance)
+})
+
+app.post('/edit', (req,res)=>{
+    const details = req.body
+    const filter = {email: details.email}
+    balanceSchema.findOneAndUpdate(filter, {$set: {balance: details.balance, ROI: details.ROI, bonus: details.bonus, totalDeposit: details.totalDeposit, totalWithdrawal: details.totalWithdrawal}}, {new: true}, (err,dets)=>{
+        if (err){
+            console.log(err)
+            req.flash('danger', 'An Error Occured, Please try again')
+            res.redirect('/admin/update')
+        } else{
+            req.flash('success', 'User Updated Successfully')
+            res.redirect('/admin/update')
+        }
+    })
+
 })
 
 const port = process.env.PORT || 3000

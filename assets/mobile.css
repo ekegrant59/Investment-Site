@@ -56,3 +56,7 @@ footer{
     left: 150px;
     padding: 15px;
 }
+
+.registered, .confirm-deposits, .pending-deposits, .withdrawal{
+    font-size: xx-small;
+}
