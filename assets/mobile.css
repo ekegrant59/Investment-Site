@@ -60,3 +60,11 @@ footer{
 .registered, .confirm-deposits, .pending-deposits, .withdrawal{
     font-size: xx-small;
 }
+
+.pending-deposits i{
+    font-size: x-small;
+}
+
+.mybutton{
+    font-size: x-small;
+}

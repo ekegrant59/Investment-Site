@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-2 border border-white p-3"><b>NAME</b></div>
                 <div class="col-2 border border-white p-3 "><b>EMAIL</b></div>
-                <div class="col-2 border border-white p-3 "><b>PASSWORD</b></div>
+                <div class="col-2 border border-white p-3overflow-auto overflow-y-hidden "><b>PASSWORD</b></div>
                 <div class="col-2 border border-white p-3 "><b>NUMBER</b></div>
                 <div class="col-2 border border-white p-3 "><b>COUNTRY</b></div>
                 <div class="col-2 border border-white p-3 "><b>DATE</b></div>
@@ -82,20 +82,24 @@
             <div class="row">
                 <div class="col-3 border border-white p-3"><b>NAME</b></div>
                 <div class="col-3 border border-white p-3 overflow-auto text-nowrap"><b>TRANSACTION ID</b></div>
-                <div class="col-3 border border-white p-3 "><b>AMOUNT</b></div>
-                <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+                <div class="col-2 border border-white p-3 "><b>AMOUNT</b></div>
+                <div class="col-2 border border-white p-3 "><b>DATE</b></div>
+                <div class="col-2 border border-white p-3 "><b>CONFIRM</b></div>
             </div>
         </div>
 
         <% if (pendDeposits) { %>
             <div class="">
                 <% pendDeposits.forEach(pendDeposit =>{ %>
-                    <div class="row">
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=pendDeposit.name%></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.transactID %></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.amount %></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.date %></div>
-                    </div>
+                    <form action="/confirm" method="post">
+                        <div class="row">
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=pendDeposit.name%></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><input type="text" name="transactID" readonly  class="form-control-plaintext text-light" value="<%= pendDeposit.transactID %>"></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.amount %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.date %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto overflow-y-hidden"><button class="btn btn-primary mybutton"><i class="bi bi-check-lg"></i></button></div>
+                        </div>
+                    </form>
                 <% }) %> 
             </div>
         <% } else {%>
@@ -132,4 +136,15 @@
 
     </div>
 </body>
+
+<script>
+    // let mybuttons = document.querySelectorAll('.mybutton')
+    // for(let i = 0; i<mybuttons.length; i++){
+    //     let button = mybuttons[i]
+    //     button.addEventListener('click', (e)=>{
+    //         e.preventDefault()
+    //         console.log(i)
+    //     })
+    // }
+</script>
 </html>

@@ -26,10 +26,10 @@
         <div class="container-fluid">
             <% deposits.forEach(deposit =>{ %>
                 <div class="row mx-sm-5 mx-2 ">
-                    <div class="col-3 p-3 border border-white text-break overflow-scroll"><b><%= deposit.transactID %> </b></div>
-                    <div class="col-3 p-3 border border-white text-nowrap overflow-sm-scroll overflow-y-hidden"><b>$<%= deposit.amount %> </b></div>
+                    <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><b><%= deposit.transactID %> </b></div>
+                    <div class="col-3 p-3 border border-white text-nowrap overflow-auto "><b>$<%= deposit.amount %> </b></div>
                     <div class="col-3 p-3 border border-white text-nowrap"><b><%= deposit.status %> </b></div>
-                    <div class="col-3 p-3 border border-white check text-nowrap overflow-scroll overflow-y-hidden"><b><%= deposit.date %> </b></div>
+                    <div class="col-3 p-3 border border-white check text-nowrap overflow-auto"><b><%= deposit.date %> </b></div>
                 </div>
             <% }) %> 
         </div>
