@@ -612,9 +612,13 @@ app.get('/edit/:id', async (req,res)=>{
     let email = req.params.id 
     // console.log(email)
 
-    let balance = await balanceSchema.findOne({email: email})
+    try{
+        let balance = await balanceSchema.findOne({email: email})
     // console.log(balance)
-    res.send(balance)
+        res.send(balance)
+    } catch(err){
+        console.log(err)
+    }
 })
 
 app.post('/edit', (req,res)=>{
@@ -638,6 +642,18 @@ app.post('/confirm', (req,res)=>{
     // console.log(body.transactID)
     const filter = {transactID: body.transactID}
     depositSchema.findOneAndUpdate(filter, {$set: {status: 'confirmed'}}, {new: true}, (err)=>{
+        if(err){
+            console.log(err)
+        }
+    })
+    res.redirect('/admin')
+})
+
+app.post('/unconfirm', (req,res)=>{
+    const body = req.body
+    // console.log(body.transactID)
+    const filter = {transactID: body.transactID}
+    depositSchema.findOneAndUpdate(filter, {$set: {status: 'pending'}}, {new: true}, (err)=>{
         if(err){
             console.log(err)
         }

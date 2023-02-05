@@ -19,7 +19,7 @@
             <div class="row">
                 <div class="col-2 border border-white p-3"><b>NAME</b></div>
                 <div class="col-2 border border-white p-3 "><b>EMAIL</b></div>
-                <div class="col-2 border border-white p-3overflow-auto overflow-y-hidden "><b>PASSWORD</b></div>
+                <div class="col-2 border border-white p-3 overflow-auto "><b>PASSWORD</b></div>
                 <div class="col-2 border border-white p-3 "><b>NUMBER</b></div>
                 <div class="col-2 border border-white p-3 "><b>COUNTRY</b></div>
                 <div class="col-2 border border-white p-3 "><b>DATE</b></div>
@@ -52,20 +52,24 @@
             <div class="row">
                 <div class="col-3 border border-white p-3"><b>NAME</b></div>
                 <div class="col-3 border border-white p-3 overflow-auto text-nowrap"><b>TRANSACTION ID</b></div>
-                <div class="col-3 border border-white p-3 "><b>AMOUNT</b></div>
-                <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+                <div class="col-2 border border-white p-3 "><b>AMOUNT</b></div>
+                <div class="col-2 border border-white p-3 "><b>DATE</b></div>
+                <div class="col-2 border border-white p-3 overflow-auto "><b>UNCONFIRM</b></div>
             </div>
         </div>
 
         <% if (confirmDeposits) { %>
             <div class="">
                 <% confirmDeposits.forEach(confirmDeposit =>{ %>
-                    <div class="row">
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=confirmDeposit.name%></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.transactID %></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.amount %></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.date %></div>
-                    </div>
+                   <form action="/unconfirm" method="post">
+                        <div class="row">
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=confirmDeposit.name%></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><input type="text" name="transactID" readonly  class="form-control-plaintext text-light" value="<%= confirmDeposit.transactID %>"></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.amount %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.date %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto overflow-y-hidden"><button class="btn btn-primary mybutton"><i class="bi bi-dash-lg"></i></button></div>
+                        </div>
+                   </form>
                 <% }) %> 
             </div>
         <% } else {%>
