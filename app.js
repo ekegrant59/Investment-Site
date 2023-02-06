@@ -371,7 +371,7 @@ app.get('/deposit',protectRoute, async (req,res)=>{
 app.get('/withdraw',protectRoute, async (req,res)=>{
     try{
         const auser = req.user.user.email
-        const theuser = await userSchema.findOne({email: auser})
+        const theuser = await balanceSchema.findOne({email: auser})
         res.render('withdraw', {user: theuser})
     } catch(err){
         console.log(err)
@@ -472,13 +472,14 @@ app.post('/withdraw', async (req,res)=>{
     const user = jwt.verify(token, secretkey)
     req.user = user
     const auser = req.user.user.email
-    const theuser = await userSchema.findOne({email: auser})
+    const theuser = await balanceSchema.findOne({email: auser})
+    const theuser1 = await userSchema.findOne({email: auser})
 
     const details = req.body
     const balance = theuser.balance
     const date = new Date()
     const amount = details.amount
-    const name = `${theuser.firstName} ${theuser.lastName}`
+    const name = `${theuser1.firstName} ${theuser1.lastName}`
 
     if(amount > balance){
         req.flash('danger', 'Insufficient Funds')
@@ -541,8 +542,9 @@ app.get('/admin',protectAdminRoute, async (req,res)=>{
         const user = await userSchema.find()
         const pendDeposit = await depositSchema.find({status: 'pending'})
         const confirmDeposit = await depositSchema.find({status: 'confirmed'})
-        const withdrawal = await withdrawSchema.find()
-        res.render('admin', {users: user, pendDeposits: pendDeposit, confirmDeposits: confirmDeposit, withdrawals: withdrawal })
+        const pendingwithdrawal = await withdrawSchema.find({status: 'pending'})
+        const confirmwithdrawal = await withdrawSchema.find({status: 'confirmed'})
+        res.render('admin', {users: user, pendDeposits: pendDeposit, confirmDeposits: confirmDeposit, confirmWithdrawals: confirmwithdrawal, pendingWithdrawals: pendingwithdrawal })
     } catch(err){
         console.log(err)
     }
@@ -637,7 +639,7 @@ app.post('/edit', (req,res)=>{
 
 })
 
-app.post('/confirm', (req,res)=>{
+app.post('/confirm/deposit', (req,res)=>{
     const body = req.body
     // console.log(body.transactID)
     const filter = {transactID: body.transactID}
@@ -649,11 +651,38 @@ app.post('/confirm', (req,res)=>{
     res.redirect('/admin')
 })
 
-app.post('/unconfirm', (req,res)=>{
+app.post('/unconfirm/deposit', (req,res)=>{
     const body = req.body
     // console.log(body.transactID)
     const filter = {transactID: body.transactID}
     depositSchema.findOneAndUpdate(filter, {$set: {status: 'pending'}}, {new: true}, (err)=>{
+        if(err){
+            console.log(err)
+        }
+    })
+    res.redirect('/admin')
+})
+
+app.post('/confirm/withdrawal', (req,res)=>{
+    const body = req.body
+    // console.log(body.transactID)
+    // console.log(body.id)
+    const filter = {_id: body.id}
+    withdrawSchema.findOneAndUpdate(filter, {$set: {status: 'confirmed'}}, {new: true}, (err)=>{
+        if(err){
+            console.log(err)
+        }
+    })
+    res.redirect('/admin')
+})
+
+app.post('/unconfirm/withdrawal', async (req,res)=>{
+    const body = req.body
+    // console.log(body.transactID)
+    const filter = {_id: body.id}
+    // const found = await withdrawSchema.findOne(filter)
+    // console.log(found)
+    withdrawSchema.findOneAndUpdate(filter, {$set: {status: 'pending'}}, {new: true}, (err)=>{
         if(err){
             console.log(err)
         }

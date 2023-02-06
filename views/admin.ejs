@@ -30,12 +30,12 @@
             <div class="">
                 <% users.forEach(user =>{ %>
                     <div class="row">
-                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.firstName %> <%= user.lastName %></div>
-                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.email %></div>
-                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.password1 %></div>
-                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.number %></div>
-                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.country %></div>
-                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= user.date %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= user.firstName %> <%= user.lastName %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= user.email %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= user.password1 %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= user.number %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= user.country %></div>
+                        <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= user.date %></div>
                     </div>
                 <% }) %> 
             </div>
@@ -61,13 +61,13 @@
         <% if (confirmDeposits) { %>
             <div class="">
                 <% confirmDeposits.forEach(confirmDeposit =>{ %>
-                   <form action="/unconfirm" method="post">
+                   <form action="/unconfirm/deposit" method="post">
                         <div class="row">
-                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=confirmDeposit.name%></div>
-                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><input type="text" name="transactID" readonly  class="form-control-plaintext text-light" value="<%= confirmDeposit.transactID %>"></div>
-                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.amount %></div>
-                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= confirmDeposit.date %></div>
-                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto overflow-y-hidden"><button class="btn btn-primary mybutton"><i class="bi bi-dash-lg"></i></button></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%=confirmDeposit.name%></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><input type="text" name="transactID" readonly  class="form-control-plaintext text-light" value="<%= confirmDeposit.transactID %>"></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= confirmDeposit.amount %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= confirmDeposit.date %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-dash-lg"></i></button></div>
                         </div>
                    </form>
                 <% }) %> 
@@ -95,13 +95,13 @@
         <% if (pendDeposits) { %>
             <div class="">
                 <% pendDeposits.forEach(pendDeposit =>{ %>
-                    <form action="/confirm" method="post">
+                    <form action="/confirm/deposit" method="post">
                         <div class="row">
-                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=pendDeposit.name%></div>
-                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><input type="text" name="transactID" readonly  class="form-control-plaintext text-light" value="<%= pendDeposit.transactID %>"></div>
-                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.amount %></div>
-                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= pendDeposit.date %></div>
-                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto overflow-y-hidden"><button class="btn btn-primary mybutton"><i class="bi bi-check-lg"></i></button></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%=pendDeposit.name%></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><input type="text" name="transactID" readonly  class="form-control-plaintext text-light" value="<%= pendDeposit.transactID %>"></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendDeposit.amount %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendDeposit.date %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-check-lg"></i></button></div>
                         </div>
                     </form>
                 <% }) %> 
@@ -114,26 +114,62 @@
 
     </div>
 
-    <div class="withdrawal my-5 mx-sm-5 mx-3">
+    <div class="pending-withdrawal my-5 mx-sm-5 mx-3">
         <h2 class="ms-2 about-us-heading">Pending Withdrawals</h2>
         <div class="">
             <div class="row">
                 <div class="col-3 border border-white p-3"><b>NAME</b></div>
-                <div class="col-3 border border-white p-3 overflow-auto text-nowrap"><b>ADDRESS</b></div>
-                <div class="col-3 border border-white p-3 "><b>AMOUNT</b></div>
+                <div class="col-2 border border-white p-3 overflow-auto text-nowrap"><b>ADDRESS</b></div>
+                <div class="col-2 border border-white p-3 "><b>AMOUNT</b></div>
                 <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+                <div class="col-2 border border-white p-3 "><b>CONFIRM</b></div>
             </div>
         </div>
 
-        <% if (withdrawals) { %>
+        <% if (pendingWithdrawals) { %>
             <div class="">
-                <% withdrawals.forEach(withdrawal =>{ %>
-                    <div class="row">
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%=withdrawal.name%></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= withdrawal.address%></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= withdrawal.amount %></div>
-                        <div class="col-3 p-3 border border-white text-nowrap overflow-auto overflow-y-hidden"><%= withdrawal.date %></div>
-                    </div>
+                <% pendingWithdrawals.forEach(pendingWithdrawal =>{ %>
+                    <form action="/confirm/withdrawal" method="post">
+                        <div class="row">
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%=pendingWithdrawal.name%></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.address%></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.amount %></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.date %></div>
+                            <input type="text" value="<%= pendingWithdrawal.id %>" class="d-none" name="id">
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-check-lg"></i></button></div>                            
+                        </div>
+                    </form>
+                <% }) %> 
+            </div>
+        <% }%>
+
+    </div>
+
+    <div class="confirm-withdrawal my-5 mx-sm-5 mx-3">
+        <h2 class="ms-2 about-us-heading">Confirmed Withdrawals</h2>
+        <div class="">
+            <div class="row">
+                <div class="col-3 border border-white p-3"><b>NAME</b></div>
+                <div class="col-2 border border-white p-3 overflow-auto text-nowrap"><b>ADDRESS</b></div>
+                <div class="col-2 border border-white p-3 "><b>AMOUNT</b></div>
+                <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+                <div class="col-2 border border-white p-3 overflow-auto"><b>UNCONFIRM</b></div>
+            </div>
+        </div>
+
+        <% if (confirmWithdrawals) { %>
+            <div class="">
+                <% confirmWithdrawals.forEach(confirmWithdrawal =>{ %>
+                    <form action="/unconfirm/withdrawal" method="post">
+                        <div class="row">
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%=confirmWithdrawal.name%></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= confirmWithdrawal.address%></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= confirmWithdrawal.amount %></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%= confirmWithdrawal.date %></div>
+                            <input type="text" value="<%= confirmWithdrawal.id %>" class="d-none" name="id">
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-dash-lg"></i></button></div>                            
+                        </div>
+                    </form>
                 <% }) %> 
             </div>
         <% }%>

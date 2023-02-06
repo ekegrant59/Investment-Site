@@ -57,7 +57,7 @@ footer{
     padding: 15px;
 }
 
-.registered, .confirm-deposits, .pending-deposits, .withdrawal{
+.registered, .confirm-deposits, .pending-deposits, .pending-withdrawal, .confirm-withdrawal{
     font-size: xx-small;
 }
 

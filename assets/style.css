@@ -4,8 +4,8 @@ body{
 }
 .navbar-custom{
     font-size: large;
-    border-bottom: 1px solid rgb(2, 44, 44);
-    background-color: #070a0e;
+    /* border-bottom: 1px solid rgb(2, 44, 44); */
+    background-color: #060505;
     box-sizing: border-box;
 }
 .custom-toggler .navbar-toggler-icon {
@@ -254,9 +254,7 @@ footer h4{
     right: 10px;
 }
 
-.pending-deposits i{
-    font-size: x-large;
-}
-.confirm-deposits i{
-    font-size: x-large;
+.nav-img{
+    width: 80px;
+    height: 50px;
 }
