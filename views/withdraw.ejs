@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Withdraw</title>
     <%- include('partials/head-links') %>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function() {
+          emailjs.init('PoN4hliHyKblQM3Ax');
+      })();
+    </script>
 </head>
 <body>
     <%- include('partials/usernav') %>
@@ -13,14 +19,15 @@
         <h3 class="about-us-heading text-center my-4">Withdraw</h3>
     </div>
 
-    <form action="/withdraw" method="post" class="my-4 p-4 col-sm-9 col-10 mx-auto">
+    <form action="/withdraw" method="post" class="my-4 p-4 col-sm-9 col-10 mx-auto" id="myform">
         <div class="m-5">
             <%- messages('messages', locals) %> 
         </div>
         <div class="mb-3 row">
             <label for="inputAmount" class="col-sm-3 col-form-label">Account Balance: </label>
             <div class="col-sm-9">
-              <input type="text" readonly class="form-control-plaintext" id="inputAmount" value="$<%= user.balance %>">
+              <input type="text" readonly class="form-control-plaintext" id="inputAmount" value="$<%= user1.balance %>">
+              <input type="text" readonly class="form-control-plaintext d-none"  value="<%= user1.name%>" name="name">
             </div>
         </div>
         <div class="mb-3 row">
@@ -44,7 +51,7 @@
 
     <script>
         let address = document.querySelector('#inputAddress')
-        let balance = parseInt('<%= user.balance %>')
+        let balance = parseInt('<%= user1.balance %>')
         let button = document.querySelector('.submit')
         let amount = document.querySelector('#inputAmount1')
         if(!(address.value)){
@@ -54,6 +61,16 @@
         if(balance > 0 ){
             button.removeAttribute('disabled')
         }
+
+        const form = document.querySelector('#myform')
+            form.addEventListener('submit', event => {
+            emailjs.sendForm('contact', 'withdrawal', form)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+            })
 
 
     </script>

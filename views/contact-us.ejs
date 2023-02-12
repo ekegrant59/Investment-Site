@@ -9,7 +9,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init('e9ELiqFoFJhHREtSU');
+            emailjs.init('bE6QppkdUKlVYpr_P');
         })();
     </script>
 </head>
@@ -26,6 +26,9 @@
                 <p>We are open to all suggestions from our clients.</p>
                 <form class="needs-validation" novalidate data-bs-theme="dark">
                     <div class="row mb-3">
+                        <div class="message alert alert-success" >
+                             <p class="mb-0">Your Message has been sent Successfully!</p>
+                        </div>
                       <label for="inputName" class="col-12 col-form-label">Name:</label>
                       <div class="col-12">
                         <input type="text" class="form-control" id="inputName" name="user_name" required>
@@ -48,7 +51,7 @@
                     <div class="row mb-3">
                       <label for="inputMessage" class="col-12 col-form-label" required>Message:</label>
                       <div class="col-12">
-                        <textarea name="message" id="inputMessage" cols="30" rows="5" class="form-control"></textarea>
+                        <textarea name="message" id="inputMessage" cols="30" rows="5" class="form-control text-dark"></textarea>
                         <div class="invalid-feedback">
                             Please Input a valid Message.
                         </div>
@@ -61,9 +64,9 @@
             </div>
             <div class="col-lg-6 contactEnd p-4 pt-4 mb-5 order-1 order-sm-2">
                 <p>Do You have any questions? We strongly recommend that you start searching for the necessary information in the FAQ section. If you need advice or technical assistance, do not hesitate to contact our specialists. <br> <br> Customer support is available around the clock. You just need to send a letter or a request via the feedback form to promptly receive the necessary assistance. Remember that the more detailed the description of your problem is, the sooner it will be solved. Do not forget to indicate your login detials, if you are a registered user of the website.</p>
-                <h3>CONTACT INFORMATION</h3>
-                <p>Number: </p>
-                <p>Email: </p>
+                <h3 class="mt-5 mb-3">CONTACT INFORMATION</h3>
+                <p>Number: +1 (925) 587-3214 </p>
+                <p>Email: contact@acassets.com </p>
             </div>
         </div>
     </div>
@@ -75,16 +78,18 @@
         (() => {
         'use strict'
         const form = document.querySelector('.needs-validation')
+        const message = document.querySelector('.message')
+        message.style.display = 'none'
             form.addEventListener('submit', event => {
                 event.preventDefault()
                 event.stopPropagation()
-            emailjs.sendForm('service_s538bwk', 'contact_form', form)
+            emailjs.sendForm('myalerts', 'contact', form)
                     .then(function() {
                         console.log('SUCCESS!');
+                        message.style.display = 'block'
                     }, function(error) {
                         console.log('FAILED...', error);
                     });
-            // console.log(name.value, email.value,message.value )
             })
         })()
 

@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | AC Assets</title>
     <%- include('partials/head-links') %>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function() {
+          emailjs.init('PoN4hliHyKblQM3Ax');
+      })();
+  </script>
 </head>
 <body>
     <%- include('partials/navbar') %>
@@ -769,6 +775,7 @@
               registered.style.display ='block'
             } else{
               // console.log(res.url)
+              sendMail()
               window.alert('Sucessfully Registered! \nPlease Login')
               window.location.href = res.url
             }
@@ -776,6 +783,16 @@
           // .then(data => console.log(data))
         }
       })
+
+      function sendMail(){
+        emailjs.sendForm('contact', 'registered', form)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                        message.style.display = 'block'
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+      }
       
     </script>
 </body>

@@ -371,8 +371,9 @@ app.get('/deposit',protectRoute, async (req,res)=>{
 app.get('/withdraw',protectRoute, async (req,res)=>{
     try{
         const auser = req.user.user.email
-        const theuser = await balanceSchema.findOne({email: auser})
-        res.render('withdraw', {user: theuser})
+        const theuser1 = await balanceSchema.findOne({email: auser})
+        const theuser = await userSchema.findOne({email: auser})
+        res.render('withdraw', {user: theuser, user1:theuser1})
     } catch(err){
         console.log(err)
     }

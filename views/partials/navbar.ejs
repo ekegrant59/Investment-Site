@@ -9,7 +9,7 @@
       <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="--bs-offcanvas-width:300px; background-color: #121a24;">
         
         <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <ul class="navbar-nav justify-content-end flex-grow-1">
                 <li class="nav-item px-2 mt-3 my-lg-0" data-bs-theme="dark">
                   <a class="nav-link float-start color1" href="/" >Home</a>
                   <button type="button" class="btn-close text-success float-end d-lg-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -46,6 +46,10 @@
                 </li>
                 <li class="nav-item px-2 my-lg-0">
                   <a class="nav-link color1 registerbtn" href="/register ">Register</a>
+                  <hr class=" new3 d-lg-none ">
+                </li>
+                <li class="nav-item px-2 my-lg-0">
+                  <div id="google_translate_element"></div>
                 </li>
               </ul>
         </div>
@@ -69,3 +73,15 @@
       loginbtn.setAttribute('href', '/dashboard')
   }
 </script>
+
+<script type="text/javascript">  
+  function googleTranslateElementInit() {  
+      new google.translate.TranslateElement(  
+          {pageLanguage: 'en'},  
+          'google_translate_element'  
+      );  
+  }  
+</script>  
+<script type="text/javascript"   
+src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">  
+</script> 

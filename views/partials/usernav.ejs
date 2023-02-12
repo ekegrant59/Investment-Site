@@ -7,12 +7,25 @@
             </a>
           
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark p-3">
+              <div id="google_translate_element"></div>
+                <script type="text/javascript">  
+                    function googleTranslateElementInit() {  
+                        new google.translate.TranslateElement(  
+                            {pageLanguage: 'en'},  
+                            'google_translate_element'  
+                        );  
+                    }  
+                </script>  
+                <script type="text/javascript"   
+                src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">  
+                </script> 
               <li class="dropdown-item mb-2"><b>Hi! <%= user.firstName %></b></li>
               <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-person-vcard-fill me-2"></i>Dashboard</a></li>
               <li><a class="dropdown-item" href="/deposit"><i class="bi bi-box-arrow-in-down me-2"></i> Deposit</a></li>
               <li><a class="dropdown-item" href="/withdraw"><i class="bi bi-box-arrow-up me-2"></i> Withdrawal</a></li>
               <li><a class="dropdown-item" href="/account-settings"><i class="bi bi-gear-fill me-2"></i> Account Settings </a></li>
               <li><a class="dropdown-item mt-3 text-danger" href="/logout"><b><i class="bi bi-box-arrow-right me-2"></i> Log Out</b></a></li>
+              
             </ul>
           </div>
     </div>
