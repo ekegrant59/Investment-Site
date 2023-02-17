@@ -57,18 +57,6 @@
                       <input type="text"  class="form-control" id="inputBonus" name="bonus" >
                     </div>
                 </div>
-                <div class="mb-3 row">
-                    <label for="inputTotalDeposit" class="col-sm-3 col-form-label">Total Deposit</label>
-                    <div class="col-sm-9">
-                      <input type="text"  class="form-control" id="inputTotalDeposit" name="totalDeposit" >
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="inputTotalWithdrawal" class="col-sm-3 col-form-label">Total Withdrawal</label>
-                    <div class="col-sm-9">
-                      <input type="text"  class="form-control" id="inputTotalWithdrawal" name="totalWithdrawal">
-                    </div>
-                </div>
                 <div class="my-3 text-center">
                     <button class="btn btn-success btn-lg" type="submit">UPDATE</button>
                 </div>
@@ -109,15 +97,11 @@
             let balance = document.querySelector('#inputBalance')
             let earned = document.querySelector('#inputTotal')
             let bonus = document.querySelector('#inputBonus')
-            let totalDeposit = document.querySelector('#inputTotalDeposit')
-            let totalWithdrawal = document.querySelector('#inputTotalWithdrawal')
     
             name.value = user.name
             balance.value = user.balance
             earned.value = user.ROI
             bonus.value = user.bonus
-            totalDeposit.value = user.totalDeposit
-            totalWithdrawal.value = user.totalWithdrawal
             show.style.display = 'block'
         } else{
             messages.innerHTML = 'User Not Found!'

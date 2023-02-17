@@ -259,9 +259,7 @@ app.post('/register', async (req,res)=>{
                 email: details.email,
                 balance: 0.00,
                 ROI: 0.00,
-                bonus: 0.00,
-                totalDeposit: 0.00,
-                totalWithdrawal:0.00
+                bonus: 0.00
             })
             await balance.save()
 
@@ -331,7 +329,8 @@ app.get('/account-settings',protectRoute, async (req,res)=>{
     try{
         const auser = req.user.user.email
         const theuser = await userSchema.findOne({email: auser})
-        res.render('account-settings', {user: theuser})
+        const theuser1 = await balanceSchema.findOne({email: auser})
+        res.render('account-settings', {user: theuser, user1: theuser1})
     } catch(err){
         console.log(err)
     }
@@ -342,7 +341,8 @@ app.get('/deposit-history',protectRoute, async (req,res)=>{
         const theuser = await userSchema.findOne({email: auser})
         const name = `${theuser.firstName} ${theuser.lastName}`
         const deposit = await depositSchema.find({name: name })
-        res.render('deposit-history', {user: theuser, deposits: deposit})
+        const theuser1 = await balanceSchema.findOne({email: auser})
+        res.render('deposit-history', {user: theuser, deposits: deposit, user1: theuser1})
         // console.log(deposit)
     } catch(err){
         console.log(err)
@@ -354,7 +354,8 @@ app.get('/withdrawal-history',protectRoute, async (req,res)=>{
         const theuser = await userSchema.findOne({email: auser})
         const name = `${theuser.firstName} ${theuser.lastName}`
         const withdrawal = await withdrawSchema.find({name: name})
-        res.render('withdrawal-history', {user: theuser, withdrawals: withdrawal})
+        const theuser1 = await balanceSchema.findOne({email: auser})
+        res.render('withdrawal-history', {user: theuser, withdrawals: withdrawal, user1: theuser1})
     } catch(err){
         console.log(err)
     }
@@ -363,11 +364,24 @@ app.get('/deposit',protectRoute, async (req,res)=>{
     try{
         const auser = req.user.user.email
         const theuser = await userSchema.findOne({email: auser})
-        res.render('deposit', {user: theuser})
+        const theuser1 = await balanceSchema.findOne({email: auser})
+        res.render('deposit', {user: theuser, user1: theuser1})
     } catch(err){
         console.log(err)
     }
 })
+
+app.get('/deposit_main',protectRoute, async (req,res)=>{
+    try{
+        const auser = req.user.user.email
+        const theuser = await userSchema.findOne({email: auser})
+        const theuser1 = await balanceSchema.findOne({email: auser})
+        res.render('deposit_main', {user: theuser, user1: theuser1})
+    } catch(err){
+        console.log(err)
+    }
+})
+
 app.get('/withdraw',protectRoute, async (req,res)=>{
     try{
         const auser = req.user.user.email
@@ -438,6 +452,7 @@ app.post('/deposit', async (req,res)=>{
     req.user = user
     const auser = req.user.user.email
     const theuser = await userSchema.findOne({email: auser})
+    const theuser1 = await balanceSchema.findOne({email: auser})
 
     const details = req.body
     const id = details.transactID
@@ -447,6 +462,48 @@ app.post('/deposit', async (req,res)=>{
     if(!(id)){
         req.flash('danger', 'Please Input the transcation ID')
         res.redirect('/deposit')
+    } else{
+        deposited()
+    }
+
+    async function deposited(){
+        try{
+            const deposit = new depositSchema({
+                name: name,
+                transactID: id,
+                amount: details.amount,
+                status: 'pending',
+                date: date,
+            })
+            await deposit.save()
+
+            balanceSchema.findOneAndUpdate({email: auser}, {$set:{plan:details.plan }}, {new: true}, (err,dets)=>{
+                if(err){
+                    console.log(err)
+                }
+                // console.log(dets)
+            })
+            res.redirect('/deposit-history')
+        } catch(err){
+            console.log(err)
+        }
+    }
+})
+app.post('/deposit_main', async (req,res)=>{
+    const token = req.cookies.logintoken
+    const user = jwt.verify(token, secretkey)
+    req.user = user
+    const auser = req.user.user.email
+    const theuser = await userSchema.findOne({email: auser})
+
+    const details = req.body
+    const id = details.transactID
+    const name = `${theuser.firstName} ${theuser.lastName}`
+    const date = new Date()
+
+    if(!(id)){
+        req.flash('danger', 'Please Input the transcation ID')
+        res.redirect('/deposit_main')
     } else{
         deposited()
     }
@@ -496,6 +553,7 @@ app.post('/withdraw', async (req,res)=>{
         try{
             const withdraw = new withdrawSchema({
                 name: name,
+                email: auser,
                 amount: amount,
                 status: 'pending',
                 date: date,
@@ -627,7 +685,7 @@ app.get('/edit/:id', async (req,res)=>{
 app.post('/edit', (req,res)=>{
     const details = req.body
     const filter = {email: details.email}
-    balanceSchema.findOneAndUpdate(filter, {$set: {balance: details.balance, ROI: details.ROI, bonus: details.bonus, totalDeposit: details.totalDeposit, totalWithdrawal: details.totalWithdrawal}}, {new: true}, (err,dets)=>{
+    balanceSchema.findOneAndUpdate(filter, {$set: {balance: details.balance, ROI: details.ROI, bonus: details.bonus}}, {new: true}, (err,dets)=>{
         if (err){
             console.log(err)
             req.flash('danger', 'An Error Occured, Please try again')

@@ -21,7 +21,7 @@
                 </script> 
               <li class="dropdown-item mb-2"><b>Hi! <%= user.firstName %></b></li>
               <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-person-vcard-fill me-2"></i>Dashboard</a></li>
-              <li><a class="dropdown-item" href="/deposit"><i class="bi bi-box-arrow-in-down me-2"></i> Deposit</a></li>
+              <li><a class="dropdown-item trading" href="/deposit"><i class="bi bi-box-arrow-in-down me-2"></i> <span class="trading22">Start Trading</span></a></li>
               <li><a class="dropdown-item" href="/withdraw"><i class="bi bi-box-arrow-up me-2"></i> Withdrawal</a></li>
               <li><a class="dropdown-item" href="/account-settings"><i class="bi bi-gear-fill me-2"></i> Account Settings </a></li>
               <li><a class="dropdown-item mt-3 text-danger" href="/logout"><b><i class="bi bi-box-arrow-right me-2"></i> Log Out</b></a></li>
@@ -30,3 +30,13 @@
           </div>
     </div>
   </nav>
+
+  <script>
+    let balance = "<%= user1.balance %>"
+      let text = document.querySelector('.trading')
+      let text22 = document.querySelector('.trading22')
+      if (balance > 0){
+        text22.innerHTML = 'Deposit Funds'
+        text.setAttribute('href', '/deposit_main')
+      }
+  </script>

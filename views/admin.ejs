@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN</title>
     <%- include('partials/head-links') %>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      (function() {
+          emailjs.init('PoN4hliHyKblQM3Ax');
+      })();
+    </script>
 </head>
 <body>
     <div class="aboutHead d-flex align-items-center">
@@ -127,16 +133,20 @@
         </div>
 
         <% if (pendingWithdrawals) { %>
-            <div class="">
+            <div class="" >
                 <% pendingWithdrawals.forEach(pendingWithdrawal =>{ %>
-                    <form action="/confirm/withdrawal" method="post">
+                    <form class="pendingWithdrawals" action="/confirm/withdrawal" method="post">
                         <div class="row">
                             <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%=pendingWithdrawal.name%></div>
                             <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.address%></div>
                             <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.amount %></div>
                             <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.date %></div>
                             <input type="text" value="<%= pendingWithdrawal.id %>" class="d-none" name="id">
-                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-check-lg"></i></button></div>                            
+                            <input type="text" name="user_email" value="<%= pendingWithdrawal.email %>" class="d-none">
+                            <input type="text" name="user" value="<%= pendingWithdrawal.name %>" class="d-none">
+                            <input type="text" name="address" value="<%= pendingWithdrawal.address %>" class="d-none">
+                            <input type="text" name="amount" value="<%= pendingWithdrawal.amount %>" class="d-none">
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton pending"><i class="bi bi-check-lg"></i></button></div>                            
                         </div>
                     </form>
                 <% }) %> 
@@ -167,7 +177,7 @@
                             <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= confirmWithdrawal.amount %></div>
                             <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%= confirmWithdrawal.date %></div>
                             <input type="text" value="<%= confirmWithdrawal.id %>" class="d-none" name="id">
-                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-dash-lg"></i></button></div>                            
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-dash-lg"></i></button></div>                           
                         </div>
                     </form>
                 <% }) %> 
@@ -178,13 +188,20 @@
 </body>
 
 <script>
-    // let mybuttons = document.querySelectorAll('.mybutton')
-    // for(let i = 0; i<mybuttons.length; i++){
-    //     let button = mybuttons[i]
-    //     button.addEventListener('click', (e)=>{
-    //         e.preventDefault()
-    //         console.log(i)
-    //     })
-    // }
+    let pendingWithdrawals = document.querySelectorAll('.pendingWithdrawals')
+    for (pendingWithdrawal of pendingWithdrawals){
+        pendingWithdrawal.addEventListener('submit', (e)=>{
+            // e.preventDefault()
+            // console.log(e.target)
+            let form = e.target
+            // console.log(typeof(form))
+            emailjs.sendForm('contact', 'withdrawal', form)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                    }, function(error) {
+                        console.log('FAILED...', error);
+            })
+        })
+    }
 </script>
 </html>

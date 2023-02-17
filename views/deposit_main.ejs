@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit | AC Assets</title>
+    <%- include('partials/head-links') %>
+</head>
+<body>
+    <%- include('partials/usernav') %>
+    <div class="aboutHead">
+        <h3 class="about-us-heading text-center my-4">Deposit</h3>
+    </div>
+    <form class="col-lg-5 col-9 mt-4 mx-auto" action="/deposit_main" method="post" >
+        <div class="calculator">
+            <!-- Crypto Converter ⚡ Widget --><crypto-converter-widget shadow symbol live background-color="#383a59" border-radius="0.60rem" fiat="united-states-dollar" crypto="bitcoin" amount="1" decimal-places="3"></crypto-converter-widget><script async src="https://cdn.jsdelivr.net/gh/dejurin/crypto-converter-widget@1.5.2/dist/latest.min.js"></script><!-- /Crypto Converter ⚡ Widget -->
+        </div>
+        <div class="m-5">
+            <%- messages('messages', locals) %> 
+        </div>
+
+        <div class="mb-3">
+            <label for="Deposit" class="form-label">Enter Amount:</label>
+            <div class="">
+              <input type="tel" class="form-control" id="amount" name="amount" placeholder="Minimum Amount: $500">
+            </div>
+            <p class="text-danger invalid" style="display: none;">Please Input A Valid Number (without special characters)</p>
+        </div>
+
+        <div  class="show mt-3">
+            <h5 class="text-center mb-4">Please send the specified amount to the following bitcoin address</h5>
+            <div class="col-lg-3 col-6 mx-auto">
+                <img src="../assets/images/btc-qr.jpg" alt="" class="img-fluid">
+            </div>
+            <p class="mt-4 text-center mb-2 address overflow-auto">1Dfo8T1wiD6Mk9A6Zrvw86HNwUKYjNTF23</p>
+            <div class="text-center mb-3">
+                <button class="btn btn-info btn-sm copy me-2">Copy Address</button>
+                <button class="btn btn-primary btn-sm calc">Bitcoin Calculator</button>
+            </div>
+
+            <div class="mb-2">
+                <label for="transactionID" class="form-label">Transaction ID:</label>
+                <div class="">
+                  <input type="text" class="form-control" id="transactionID" name="transactID">
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary mb-4 w-50 next"><b>SUBMIT</b></button>
+            </div>
+        </div>
+
+    </form>
+
+    <script>
+        let submit = document.querySelector('.next')
+        let copy = document.querySelector('.copy')
+        let calc = document.querySelector('.calc')
+        let calculator = document.querySelector('.calculator')
+        let amount = document.querySelector('#amount')
+        let invalid = document.querySelector('.invalid')
+        calculator.style.display = 'none'
+
+        copy.addEventListener('click', (e)=>{
+            e.preventDefault()
+            navigator.clipboard.writeText(address.innerHTML)
+            copy.innerHTML = 'COPIED!'
+        })
+
+        calc.addEventListener('click', (e)=>{
+            e.preventDefault()
+            if (calculator.style.display == 'none'){
+                calculator.style.display = 'block'
+                calc.innerHTML = 'click to close'
+            } else{
+                calculator.style.display = 'none'
+                calc.innerHTML ='Bitcoin Calculator'
+            }
+        })
+
+        submit.addEventListener('click', (e)=>{
+            if (isNaN(amount.value)){
+                e.preventDefault()
+                invalid.style.display = 'block'
+            }
+            // console.log(isNaN(amount.value))
+
+        })
+
+
+    </script>
+</body>
+</html>

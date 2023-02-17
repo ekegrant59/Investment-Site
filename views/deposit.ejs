@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deposit | AC Assets</title>
+    <title>Start Trading | AC Assets</title>
     <%- include('partials/head-links') %>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init('bE6QppkdUKlVYpr_P');
+        })();
+    </script>
 </head>
 <body>
     <%- include('partials/usernav') %>
     <div class="aboutHead">
-        <h3 class="about-us-heading text-center my-4">Deposit</h3>
+        <h3 class="about-us-heading text-center my-4">Start Trading</h3>
     </div>
-    <form class="col-lg-5 col-9 mt-4 mx-auto" action="/deposit" method="post" >
+    <form class="col-lg-5 col-9 mt-4 mx-auto myform" action="/deposit" method="post" >
         <div class="calculator">
             <!-- Crypto Converter ⚡ Widget --><crypto-converter-widget shadow symbol live background-color="#383a59" border-radius="0.60rem" fiat="united-states-dollar" crypto="bitcoin" amount="1" decimal-places="3"></crypto-converter-widget><script async src="https://cdn.jsdelivr.net/gh/dejurin/crypto-converter-widget@1.5.2/dist/latest.min.js"></script><!-- /Crypto Converter ⚡ Widget -->
         </div>
@@ -22,8 +28,10 @@
         <div class="mb-2">
             <label for="selectPlan" class="form-label">Please Select a Plan
             </label>
-            <select class="form-select" id="selectPlan">
-                <option value="basic" selected>Basic Plan</option>
+            <input type="text" name="user" id="user" value="<%= user.firstName %>" class="d-none">
+            <input type="text" name="user_email" id="user_email" value="<%= user.email %>" class="d-none">
+            <select class="form-select" id="selectPlan" name="plan">
+                <option value="Basic" selected>Basic Plan</option>
                 <option value="PRO">PRO Plan</option>
                 <option value="Premuim">Premuim Plan</option>
                 <option value="Retirement">Retirement Plan</option>
@@ -76,13 +84,14 @@
                 </div>
             </div>
             <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary mb-4 w-50 next"><b>SUBMIT</b></button>
+                <button type="submit" class="btn btn-primary mb-4 w-50 submit"><b>SUBMIT</b></button>
             </div>
         </div>
 
     </form>
 
     <script>
+        let form = document.querySelector('.myform')
         let selectPlan = document.querySelector('#selectPlan')
         let profit = document.querySelector('#staticProfit')
         let deposit = document.querySelector('#staticDeposit')
@@ -95,6 +104,7 @@
         let address = document.querySelector('.address')
         let calc = document.querySelector('.calc')
         let calculator = document.querySelector('.calculator')
+        let submit = document.querySelector('.submit')
         let depositAMT = 500
         calculator.style.display = 'none'
         
@@ -104,7 +114,7 @@
             let selected = e.target.value
             
             // console.log(selectPlan.value)
-            if(selected == 'basic'){
+            if(selected == 'Basic'){
                 // console.log(selectPlan.value)
                 profit.value = '5% Weekly'
                 deposit.value = '$500'
@@ -163,6 +173,17 @@
                 calc.innerHTML ='Bitcoin Calculator'
             }
         })
+
+        submit.addEventListener('click', (e)=>{
+            emailjs.sendForm('myalerts', 'deposit', form)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                        message.style.display = 'block'
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+        })
+
     </script>
 </body>
 </html>

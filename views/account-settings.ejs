@@ -27,9 +27,10 @@
             <div class="mb-3 row">
                 <label for="inputdate" class="col-sm-3 col-form-label">Registration Date: </label>
                 <div class="col-sm-9">
-                  <input type="text" readonly class="form-control-plaintext" id="inputdate" value="<%= user.date %>">
+                  <input type="text" readonly class="form-control-plaintext overflow-auto" id="inputdate" value="<%= user.date %>">
                 </div>
             </div>
+           
             <div class="mb-3 row">
                 <label for="staticEmail" class="col-sm-3 col-form-label">Email:</label>
                 <div class="col-sm-9">
@@ -54,7 +55,12 @@
                   <input type="text" class="form-control" id="staticEmail" value="<%= user.bitcoin %>" name="btc">
                 </div>
             </div>
-            
+            <div class="mb-3 row">
+                <label for="inputplan" class="col-sm-3 col-form-label">Plan: </label>
+                <div class="col-sm-9">
+                  <input type="text" readonly class="form-control-plaintext overflow-auto" id="inputplan" value="<%= user1.plan %>">
+                </div>
+            </div>
             <div class="my-3 text-center">
                 <button class="btn btn-success btn-lg" type="submit">SUBMIT</button>
             </div>

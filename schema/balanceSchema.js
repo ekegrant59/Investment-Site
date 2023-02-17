@@ -8,8 +8,7 @@ const balanceSchema = new mongoose.Schema({
     balance: Number,
     ROI: Number,
     bonus: Number,
-    totalDeposit: Number,
-    totalWithdrawal: Number
+    plan: String
 })
 
 module.exports = mongoose.model('balance', balanceSchema)

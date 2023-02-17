@@ -55,7 +55,7 @@
                     <div class="card-body  p-3">
                       <h4 class="card-title mb-4">ACCOUNT BALANCE</h4>
                       <h4 class="card-text mb-4">$<%= user1.balance %> </h4>
-                      <a href="/deposit" class="btn btn-dark text-warning w-100 mb-3">Deposit Funds</a>
+                      <a href="/deposit" class="btn btn-dark text-warning w-100 mb-3 trading1">Start Trading</a>
                     </div>
                 </div>
             </div>
@@ -77,28 +77,25 @@
               </div>
             </div>
         </div>
-        <div class="row m-4 g-4">
+        <div class="row m-4 gx-4 gy-2">
             <div class="col-md-6">
-              <div class="card text-bg-info h-100" >
-                <div class="card-body  p-3">
-                  <h4 class="card-title mb-4">TOTAL DEPOSIT</h4>
-                  <h4 class="card-text mb-4">$<%= user1.totalDeposit%> </h4>
-                  <a href="/deposit-history" class="btn btn-dark text-info w-100 mb-3">Deposit History</a>
-                </div>
-              </div>
+              <a href="/deposit-history" class="btn btn-info text-dark w-100 mb-3 fs-4"><b>Deposit History</b></a>
             </div>
 
             <div class="col-md-6">
-              <div class="card text-dark bg-success h-100" >
-                <div class="card-body  p-3">
-                  <h4 class="card-title mb-4">TOTAL WITHDRAWAL</h4>
-                  <h4 class="card-text mb-4">$<%= user1.totalWithdrawal%></h4>
-                  <a href="/withdrawal-history" class="btn btn-dark text-success w-100 mb-3">Withdrawal History</a>
-                </div>
-              </div>
+              <a href="/withdrawal-history" class="btn btn-success text-dark w-100 mb-3 fs-4"><b>Withdrawal History</b></a>
             </div>
         </div>
     </div>
+
+    <script>
+      let balance1 = parseInt("<%= user1.balance %>")
+      let text1 = document.querySelector('.trading1')
+      if (balance1 > 0){
+        text1.innerHTML = 'Deposit Funds'
+        text1.setAttribute('href', '/deposit_main')
+      }
+    </script>
 
     <!-- TradingView Widget BEGIN -->
     <div class="tradingview-widget-container "  >
