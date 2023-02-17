@@ -174,7 +174,7 @@
             }
         })
 
-        submit.addEventListener('click', (e)=>{
+        form.addEventListener('submit', (e)=>{
             emailjs.sendForm('myalerts', 'deposit', form)
                     .then(function() {
                         console.log('SUCCESS!');

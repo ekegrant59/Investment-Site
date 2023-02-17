@@ -83,7 +83,7 @@
             form.addEventListener('submit', event => {
                 event.preventDefault()
                 event.stopPropagation()
-            emailjs.sendForm('myalerts', 'contact', form)
+                emailjs.sendForm('myalerts', 'contact', form)
                     .then(function() {
                         console.log('SUCCESS!');
                         message.style.display = 'block'
