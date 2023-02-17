@@ -178,7 +178,6 @@
             emailjs.sendForm('myalerts', 'deposit', form)
                     .then(function() {
                         console.log('SUCCESS!');
-                        message.style.display = 'block'
                     }, function(error) {
                         console.log('FAILED...', error);
                     });
