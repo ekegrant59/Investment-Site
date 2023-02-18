@@ -191,13 +191,14 @@
     let pendingWithdrawals = document.querySelectorAll('.pendingWithdrawals')
     for (pendingWithdrawal of pendingWithdrawals){
         pendingWithdrawal.addEventListener('submit', (e)=>{
-            // e.preventDefault()
+            e.preventDefault()
             // console.log(e.target)
             let form = e.target
             // console.log(typeof(form))
             emailjs.sendForm('contact', 'withdrawal', form)
                     .then(function() {
                         console.log('SUCCESS!');
+                        form.submit()
                     }, function(error) {
                         console.log('FAILED...', error);
             })

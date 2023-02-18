@@ -21,9 +21,9 @@
         <div class="mb-3 row">
             <input type="text" name="user" id="user" value="<%= user.firstName %>" class="d-none">
             <input type="text" name="user_email" id="user_email" value="<%= user.email %>" class="d-none">
-            <label for="inputAmount" class="col-sm-3 col-form-label">Account Balance: </label>
+            <label for="inputAmount" class="col-sm-3 col-form-label">Total Earned: </label>
             <div class="col-sm-9">
-              <input type="text" readonly class="form-control-plaintext" id="inputAmount" value="$<%= user1.balance %>">
+              <input type="text" readonly class="form-control-plaintext" id="inputAmount" value="$<%= user1.ROI %>">
               <input type="text" readonly class="form-control-plaintext d-none"  value="<%= user1.name%>" name="name">
             </div>
         </div>
@@ -48,7 +48,7 @@
 
     <script>
         let address = document.querySelector('#inputAddress')
-        let balance1 = parseInt('<%= user1.balance %>')
+        let balance1 = parseInt('<%= user1.ROI %>')
         let button = document.querySelector('.submit')
         let amount = document.querySelector('#inputAmount1')
         if(!(address.value)){

