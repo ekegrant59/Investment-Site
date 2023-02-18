@@ -124,31 +124,47 @@
         <h2 class="ms-2 about-us-heading">Pending Withdrawals</h2>
         <div class="">
             <div class="row">
-                <div class="col-3 border border-white p-3"><b>NAME</b></div>
+                <div class="col-2 border border-white p-3"><b>NAME</b></div>
                 <div class="col-2 border border-white p-3 overflow-auto text-nowrap"><b>ADDRESS</b></div>
                 <div class="col-2 border border-white p-3 "><b>AMOUNT</b></div>
-                <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+                <div class="col-2 border border-white p-3 "><b>DATE</b></div>
                 <div class="col-2 border border-white p-3 "><b>CONFIRM</b></div>
+                <div class="col-2 border border-white p-3 "><b>FAILED</b></div>
             </div>
         </div>
 
         <% if (pendingWithdrawals) { %>
             <div class="" >
                 <% pendingWithdrawals.forEach(pendingWithdrawal =>{ %>
-                    <form class="pendingWithdrawals" action="/confirm/withdrawal" method="post">
                         <div class="row">
-                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%=pendingWithdrawal.name%></div>
+                        
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%=pendingWithdrawal.name%></div>
                             <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.address%></div>
                             <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.amount %></div>
-                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.date %></div>
-                            <input type="text" value="<%= pendingWithdrawal.id %>" class="d-none" name="id">
-                            <input type="text" name="user_email" value="<%= pendingWithdrawal.email %>" class="d-none">
-                            <input type="text" name="user" value="<%= pendingWithdrawal.name %>" class="d-none">
-                            <input type="text" name="address" value="<%= pendingWithdrawal.address %>" class="d-none">
-                            <input type="text" name="amount" value="<%= pendingWithdrawal.amount %>" class="d-none">
-                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton pending"><i class="bi bi-check-lg"></i></button></div>                            
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= pendingWithdrawal.date %></div>
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto">
+                                <form class="pendingWithdrawals" action="/confirm/withdrawal" method="post">
+                                    <input type="text" value="<%= pendingWithdrawal.id %>" class="d-none" name="id">
+                                    <input type="text" name="user_email" value="<%= pendingWithdrawal.email %>" class="d-none">
+                                    <input type="text" name="user" value="<%= pendingWithdrawal.name %>" class="d-none">
+                                    <input type="text" name="address" value="<%= pendingWithdrawal.address %>" class="d-none">
+                                    <input type="text" name="amount" value="<%= pendingWithdrawal.amount %>" class="d-none">
+                                    <button class="btn btn-primary mybutton pending"><i class="bi bi-check-lg"></i></button>
+                                </form>
+                            </div>
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto">
+                                <form class="failedWithdrawals" action="/failed/withdrawal" method="post">
+                                    <input type="text" value="<%= pendingWithdrawal.id %>" class="d-none" name="id">
+                                    <input type="text" name="user_email" value="<%= pendingWithdrawal.email %>" class="d-none">
+                                    <input type="text" name="user" value="<%= pendingWithdrawal.name %>" class="d-none">
+                                    <input type="text" name="address" value="<%= pendingWithdrawal.address %>" class="d-none">
+                                    <input type="text" name="amount" value="<%= pendingWithdrawal.amount %>" class="d-none">
+                                    <button class="btn btn-primary mybutton pending"><i class="bi bi-x-lg"></i></button>
+                                </form>
+                            </div>
+
                         </div>
-                    </form>
+                    
                 <% }) %> 
             </div>
         <% }%>
@@ -178,6 +194,37 @@
                             <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%= confirmWithdrawal.date %></div>
                             <input type="text" value="<%= confirmWithdrawal.id %>" class="d-none" name="id">
                             <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-dash-lg"></i></button></div>                           
+                        </div>
+                    </form>
+                <% }) %> 
+            </div>
+        <% }%>
+
+    </div>
+
+    <div class="confirm-withdrawal my-5 mx-sm-5 mx-3">
+        <h2 class="ms-2 about-us-heading">Failed Withdrawals</h2>
+        <div class="">
+            <div class="row">
+                <div class="col-3 border border-white p-3"><b>NAME</b></div>
+                <div class="col-2 border border-white p-3 overflow-auto text-nowrap"><b>ADDRESS</b></div>
+                <div class="col-2 border border-white p-3 "><b>AMOUNT</b></div>
+                <div class="col-3 border border-white p-3 "><b>DATE</b></div>
+                <div class="col-2 border border-white p-3 overflow-auto"><b>UNFAIL</b></div>
+            </div>
+        </div>
+
+        <% if (failedwithdrawals) { %>
+            <div class="">
+                <% failedwithdrawals.forEach(failedwithdrawal =>{ %>
+                    <form action="/unconfirm/withdrawal" method="post">
+                        <div class="row">
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%=failedwithdrawal.name%></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= failedwithdrawal.address%></div>
+                            <div class="col-2 p-3 border border-white text-nowrap overflow-auto"><%= failedwithdrawal.amount %></div>
+                            <div class="col-3 p-3 border border-white text-nowrap overflow-auto"><%= failedwithdrawal.date %></div>
+                            <input type="text" value="<%= failedwithdrawal.id %>" class="d-none" name="id">
+                            <div class="col-2 p-3 border border-white text-nowrap text-center overflow-auto"><button class="btn btn-primary mybutton"><i class="bi bi-dash-lg"></i></button></div> 
                         </div>
                     </form>
                 <% }) %> 

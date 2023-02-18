@@ -12,6 +12,8 @@
             emailjs.init('bE6QppkdUKlVYpr_P');
         })();
     </script>
+    <!-- <script src="https://smtpjs.com/v3/smtp.js">
+    </script> -->
 </head>
 <body>
     <%- include('partials/usernav') %>
@@ -71,7 +73,7 @@
             <div class="col-lg-3 col-6 mx-auto">
                 <img src="../assets/images/btc-qr.jpg" alt="" class="img-fluid">
             </div>
-            <p class="mt-4 text-center mb-2 address">1Dfo8T1wiD6Mk9A6Zrvw86HNwUKYjNTF23</p>
+            <p class="mt-4 text-center mb-2 address overflow-auto">1Dfo8T1wiD6Mk9A6Zrvw86HNwUKYjNTF23</p>
             <div class="text-center mb-3">
                 <button class="btn btn-info btn-sm copy me-2">Copy Address</button>
                 <button class="btn btn-primary btn-sm calc">Bitcoin Calculator</button>
@@ -174,6 +176,10 @@
             }
         })
 
+        // let user_email = "<%= user.email %>"
+        // let emails= [user_email, "alerts@acassets.com"]
+        // console.log(user_email)
+
         form.addEventListener('submit', (e)=>{
             e.preventDefault()
             emailjs.sendForm('myalerts', 'deposit', form)
@@ -183,6 +189,16 @@
                     }, function(error) {
                         console.log('FAILED...', error);
                     });
+
+            // Email.send({
+            //     SecureToken : "00a342bb-b7a4-4e0a-8117-96cb372421aa",
+            //     To : 'alerts@acassets.com',
+            //     From : "contact@acassets.com",
+            //     Subject : "This is the subject",
+            //     Body : "And this is the body"
+            // }).then(
+            //     message => alert(message)
+            // );
             
         })
 

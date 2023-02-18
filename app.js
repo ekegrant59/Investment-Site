@@ -603,7 +603,8 @@ app.get('/admin',protectAdminRoute, async (req,res)=>{
         const confirmDeposit = await depositSchema.find({status: 'confirmed'})
         const pendingwithdrawal = await withdrawSchema.find({status: 'pending'})
         const confirmwithdrawal = await withdrawSchema.find({status: 'confirmed'})
-        res.render('admin', {users: user, pendDeposits: pendDeposit, confirmDeposits: confirmDeposit, confirmWithdrawals: confirmwithdrawal, pendingWithdrawals: pendingwithdrawal })
+        const failedwithdrawal = await withdrawSchema.find({status: 'failed'})
+        res.render('admin', {users: user, pendDeposits: pendDeposit, confirmDeposits: confirmDeposit, confirmWithdrawals: confirmwithdrawal, pendingWithdrawals: pendingwithdrawal, failedwithdrawals:failedwithdrawal })
     } catch(err){
         console.log(err)
     }
@@ -728,6 +729,19 @@ app.post('/confirm/withdrawal', (req,res)=>{
     // console.log(body.id)
     const filter = {_id: body.id}
     withdrawSchema.findOneAndUpdate(filter, {$set: {status: 'confirmed'}}, {new: true}, (err)=>{
+        if(err){
+            console.log(err)
+        }
+    })
+    res.redirect('/admin')
+})
+
+app.post('/failed/withdrawal', (req,res)=>{
+    const body = req.body
+    // console.log(body.transactID)
+    // console.log(body.id)
+    const filter = {_id: body.id}
+    withdrawSchema.findOneAndUpdate(filter, {$set: {status: 'failed'}}, {new: true}, (err)=>{
         if(err){
             console.log(err)
         }
