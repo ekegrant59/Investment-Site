@@ -567,34 +567,34 @@ app.post('/withdraw', async (req,res)=>{
     }
 })
 
-app.get('/adminregister', (req,res)=>{
-    res.render('adminregister')
-})
+// app.get('/adminregister', (req,res)=>{
+//     res.render('adminregister')
+// })
 
-app.post('/adminregister', async(req,res)=>{
-      const regInfo = req.body
-      const password = regInfo.password
+// app.post('/adminregister', async(req,res)=>{
+//       const regInfo = req.body
+//       const password = regInfo.password
     
-      const salt = await bcrypt.genSalt(10)
-      const hashedPassword = await bcrypt.hash(password, salt)
+//       const salt = await bcrypt.genSalt(10)
+//       const hashedPassword = await bcrypt.hash(password, salt)
     
-        run()
-        async function run(){
-            try {
-                const admin = new adminSchema({
-                    email: regInfo.email,
-                    password: hashedPassword
-                })
-                await admin.save()
-            }
-            catch (err) {
-                console.log(err.message)
+//         run()
+//         async function run(){
+//             try {
+//                 const admin = new adminSchema({
+//                     email: regInfo.email,
+//                     password: hashedPassword
+//                 })
+//                 await admin.save()
+//             }
+//             catch (err) {
+//                 console.log(err.message)
             
-            }
-        }
+//             }
+//         }
     
-        res.redirect('/admin')
-    })
+//         res.redirect('/admin')
+//     })
 
 app.get('/admin',protectAdminRoute, async (req,res)=>{
     try{
