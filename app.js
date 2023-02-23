@@ -534,7 +534,7 @@ app.post('/withdraw', async (req,res)=>{
     const theuser1 = await userSchema.findOne({email: auser})
 
     const details = req.body
-    const balance = theuser.balance
+    const balance = theuser.ROI
     const date = new Date()
     const amount = details.amount
     const name = `${theuser1.firstName} ${theuser1.lastName}`

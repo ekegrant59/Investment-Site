@@ -32,10 +32,11 @@
   </nav>
 
   <script>
-    let balance = "<%= user1.balance %>"
+      let balance = "<%= user1.balance %>"
+      let balance3 = "<%= user1.ROI %>"
       let text = document.querySelector('.trading')
       let text22 = document.querySelector('.trading22')
-      if (balance > 0){
+      if (balance > 0 || balance3 > 0){
         text22.innerHTML = 'Deposit Funds'
         text.setAttribute('href', '/deposit_main')
       }

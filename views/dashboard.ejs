@@ -90,8 +90,9 @@
 
     <script>
       let balance1 = parseInt("<%= user1.balance %>")
+      let balance2 = parseInt("<%= user1.ROI %>")
       let text1 = document.querySelector('.trading1')
-      if (balance1 > 0){
+      if (balance1 > 0 || balance2 > 0){
         text1.innerHTML = 'Deposit Funds'
         text1.setAttribute('href', '/deposit_main')
       }
